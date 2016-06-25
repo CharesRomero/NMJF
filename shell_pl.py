@@ -15,8 +15,8 @@ def shell_pl(epsnot,sindex,rmin,rmax,radarr,c=1,ff=1e-3,epsatrmin=0):
 ###          integration analytically.
 ###
 ### HISTORY:
-### 23.06.2013 - CR: Written, not tested.
-###
+### 25.06.2016 - CR: Created.
+##
 ##############################################################
 ### INPUTS:
 #
@@ -28,8 +28,9 @@ def shell_pl(epsnot,sindex,rmin,rmax,radarr,c=1,ff=1e-3,epsatrmin=0):
 #             See the optional variable EPSATRMIN.
 # SINDEX    - "Spectral Index". That is, the power law 
 #             (without the minus sign) that the "emissivity"
-#             follows within your bin. This program only works for
-#             SINDX > 1 (strictly greater than 1!)
+#             follows within your bin. If you want to integrate to
+#             infinity, you must have SINDEX > 1. All other cases can
+#             handle any SINDEX value.
 # RMIN      - Minimum radius for your bin. Can be 0.
 # RMAX      - Maximum radius for your bin. If you wish to set this
 #             to infinity, then set it to a negative value.
@@ -58,13 +59,18 @@ def shell_pl(epsnot,sindex,rmin,rmax,radarr,c=1,ff=1e-3,epsatrmin=0):
 #             conversions to the units you would like.
 # 
 ##############################################################
+### Perform some double-checks.
 
   if rmin < 0:
     print 'found rmin < 0; setting rmin equal to 0'
     rmin = 0
 
-  if rmax>0 and rmax<rmin:
-    print 'You made a mistake: rmin > rmax'
+  rrmm = (radarr==np.amin(radarr))
+  if (radarr[rrmm] == 0) and (sindex > 0):
+    radarr[rrmm]=ff
+
+##############################################################
+### Determine the appropriate case (and an extra double check)
 
   if rmax < 0:
       if rmin == 0:
@@ -76,50 +82,59 @@ def shell_pl(epsnot,sindex,rmin,rmax,radarr,c=1,ff=1e-3,epsatrmin=0):
       if rmin == 0:
           scase=0
       else:
+        if rmin < rmax:
           scase=1
           epsatrmin=1
+        else:
+          print 'You made a mistake: rmin > rmax; sending to infty integration.'
+### If a mistake is possible, it will happen, eventually.
+          scase=3
 
-  rrmm = (radarr==np.amin(radarr))
-  if (radarr[rrmm] == 0) and (sindex > 0):
-    radarr[rrmm]=ff
-
-###############################
-
+### Direct program to appropriate case:
   shellcase = {0: plsphere, # You are integrating from r=0 to R (finite)
                1: plshell,  # You are integrating from r=R_1 to R_2 (finite)
                2: plsphole, # You are integrating from r=R (finite, >0) to infinity
                3: plinfty,  # You are integrating from r=0 to infinity
            }
 
+##############################################################
+### Redo some numbers to agree with hand-written calculations
+
   p = sindex/2.0 # e(r) = e_0 * (r^2)^(-p) for this notation / program
 
-  myintegration = shellcase[scase](p,rmin,rmax,radarr)
+### In a way, I actually like having EPSNORM default to being defined at RMIN
+### (Easier to compare to hand-written calculations.
 
   if epsatrmin > 0:
       epsnorm=epsnot*(rmax/rmin)**(sindex)
   else:
       epsnorm=epsnot
 
+### Prefactors change a bit depending on integration method.
+### These are the only "pre"factors common to all (both) methods.
   prefactors=epsnorm*c
-  answer = myintegration*prefactors
+### Now integrate for the appropriate case
+  myintegration = shellcase[scase](p,rmin,rmax,radarr)
+  answer = myintegration*prefactors  ## And get your answer!
   return answer
 
-##############################
+##############################################################
+##### Integration cases, as directed above.              #####
+##############################################################
 
 def plsphere(p,rmin,rmax,radarr):
     c1 = radarr<=rmax              # condition 1
     c2 = radarr>rmax               # condition 2
     sir=(radarr[c1]/rmax)          # scaled radii
-    isni=((2.0*p==np.floor(2.0*p)) and (p<=1))
+    isni=((2.0*p==np.floor(2.0*p)) and (p<=1)) # Special cases -> "method 2"
     if isni:
-      tmax=np.arctan(np.sqrt(1.0 - sir**2)/sir)
-      plint=ri.myredcosine(tmax,2.0*p-2.0)*(sir**(1.0-2.0*p))*2.0
+      tmax=np.arctan(np.sqrt(1.0 - sir**2)/sir)   # Theta max
+      plint=ri.myredcosine(tmax,2.0*p-2.0)*(sir**(1.0-2.0*p))*2.0 # Integration + prefactors
     else:
       cbf=(sps.gamma(p-0.5)*np.sqrt(np.pi))/sps.gamma(p) # complete beta function
-      ibir=ri.myrincbeta(sir**2,p-0.5,0.5) # incomplete beta function
-      plint=(sir**(1.0-2.0*p))*(1.0-ibir)*cbf
+      ibir=ri.myrincbeta(sir**2,p-0.5,0.5)               # incomplete beta function
+      plint=(sir**(1.0-2.0*p))*(1.0-ibir)*cbf     # Apply appropriate "pre"-factors
 
-#    import pdb; pdb.set_trace()
     myres=radarr*0          # Just make my array (unecessary?)
     myres[c1]=plint         # Define values for R < RMIN
     return myres*rmax               # The results we want
@@ -129,29 +144,24 @@ def plshell(p,rmin,rmax,radarr):
     c2 = radarr[c1]<rmin            # condition 2
     sir=(radarr[c1]/rmin)           # scaled inner radii
     sor=(radarr[c1]/rmax)           # scaled outer radii
-    isni=((2.0*p==np.floor(2.0*p)) and (p<=1))
+    isni=((2.0*p==np.floor(2.0*p)) and (p<=1)) # Special cases -> "method 2"
     myres=radarr*0                  # Just make my array (unecessary?)
     if isni:
-      tmax=np.arctan(np.sqrt(1.0 - sor**2)/sor)
-      tmin=np.arctan(np.sqrt(1.0 - sir[c2]**2)/sir[c2])
-      plint=ri.myredcosine(tmax,2.0*p-2.0)
-      plint[c2]-=ri.myredcosine(tmin,2.0*p-2.0)
-      myres[c1]=plint*(sor**(1.0-2.0*p))*2.0
+      tmxo=np.arctan(np.sqrt(1.0 - sor**2)/sor)         # Theta max...outer circle
+      tmxi=np.arctan(np.sqrt(1.0 - sir[c2]**2)/sir[c2]) # Theta max...inner circle
+      plint=ri.myredcosine(tmxo,2.0*p-2.0)              # Integrate for outer circle.
+      plint[c2]-=ri.myredcosine(tmxi,2.0*p-2.0) # Integrate and subtract inner circle
+      myres[c1]=plint*(sor**(1.0-2.0*p))*2.0    # Apply appropriate "pre"-factors
       
     else:
       cbf=(sps.gamma(p-0.5)*np.sqrt(np.pi))/sps.gamma(p) # complete beta function
       ibir=ri.myrincbeta(sir**2,p-0.5,0.5) # Inc. Beta for inn. rad.
       ibor=ri.myrincbeta(sor**2,p-0.5,0.5) # Inc. Beta for out. rad.
-      plinn=(sir**(1.0-2.0*p))       # Power law term for inner radii
-      #    plout=(sor**(1.0-p))      # Power law term for outer radii
-      myres[c1]=plinn*(1.0-ibor)*cbf      # Define values for the enclosed circle
+      plinn=(sir**(1.0-2.0*p))             # Power law term for inner radii
+      myres[c1]=plinn*(1.0-ibor)*cbf       # Define values for the enclosed circle
       myres[c2]=plinn[c2]*(ibir[c2]-ibor[c2])*cbf # Correct the values for the 
-                                        # innermost circle
-    return myres*rmin               # The results we want
-
-#    tosub=plsphere(p,0,rmin,radarr)
-#    return myres-tosub*(rmin/rmax)^p
-#    myres[c1]=plout*(1.0-ibor) - plinn*(1.0-ibir)
+                                           # inner circle
+    return myres*rmin                      # The results we want
 
 def plsphole(p,rmin,rmax,radarr):
     c1 = radarr<rmin               # condition 1
