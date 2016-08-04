@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fullpage}
+\usepackage{hyperref}
+
+\newcommand{\asec}{$^{\prime \prime}$}
+\newcommand{\amin}{$^{\prime}$}
+
+\begin{document}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tabular}{ccc}
+    \epsfig{file=a1_a2_figs/T_profs_and_models_a1835_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_a611_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m1115_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  \\
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m0429_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m1206_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m0329_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  \\
+    \epsfig{file=a1_a2_figs/T_profs_and_models_rxj1347_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m1311_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m1423_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  \\
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m1149_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m0717_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m0647_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  \\
+    \epsfig{file=a1_a2_figs/T_profs_and_models_m0744_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+    \epsfig{file=a1_a2_figs/T_profs_and_models_clj1226_coarse_accept2_19_Jul_2016.eps,width=0.33\linewidth,clip=}  &
+ \end{tabular}
+  \caption{Temperature profiles calculated from SZ pressure and X-ray determined electron density in green. The
+   blue points (and error bars) are from X-ray (ACCEPT2).}
+ \end{figure}
+
+It could also be interesting to say something about any potential improvements in temperature estimation.
+
+\begin{table}
+  \centering
+  \begin{tabular}{l l l}
+    Cluster     & $\bar{\sigma_{T,SZ} / \sigma_{T,X}}$ & $\tilde{\sigma_{T,SZ} / \sigma_{T,X}}$ \\
+    \hline   
+    Abell 1835  & 1.97 & 1.55 \\
+    Abell 611   & 2.33 & 2.28 \\
+    MACS 1115   & 1.95 & 1.41 \\
+    MACS 0429   & 1.85 & 1.62 \\
+    MACS 1206   & 1.01 & 0.99 \\
+    MACS 0329   & 3.26 & 3.20 \\
+    RXJ 1347    & 2.08 & 1.21 \\
+    MACS 1311   & 2.39 & 2.04 \\
+    MACS 1423   & 2.52 & 2.01 \\
+    MACS 1149   & 0.84 & 0.87 \\
+    MACS 0717   & 1.61 & 1.67 \\
+    MACS 0647   & 1.29 & 1.15 \\
+    MACS 0744   & 1.92 & 1.94 \\
+    CLJ 1226    & 0.94 & 0.70 
+  \end{tabular}
+  \caption{The mean ($\bar{\sigma_{T,SZ} / \sigma_{T,X}}$) and median ($\tilde{\sigma_{T,SZ} / \sigma_{T,X}}$)
+    of the ratio of error bars on the temperature.}
+\end{table}
+
+%\begin{table}
+%  \centering
+%  \begin{tabular}{l | l l l }
+%    Cluster & $\epsilon$ & $\sigma_{\epsilon}$ & $\Delta k$ ($\sigma$) \\
+%    \hline   
+%    Abell 1835 & 0.67 & 0.16 &  0.63 \\
+%    Abell 611  & 1.66 & 0.44 &  0.46 \\
+%    MACS 1115  & 0.68 & 0.17 &  0.33 \\
+%    MACS 0429  & 1.67 & 0.46 &  3.18 \\
+%    MACS 1206  & 1.22 & 0.29 &  0.56 \\
+%    MACS 0329  & 2.53 & 0.63 &  0.87 \\
+%    RXJ 1347   & 0.87 & 0.20 &  0.63 \\
+%    MACS 1311  & 1.62 & 0.46 &  1.18 \\
+%    MACS1423   & 1.56 & 0.44 &  1.89 \\
+%    MACS 1149  & 1.53 & 0.37 &  1.49 \\
+%    MACS 0717  & 1.83 & 0.43 & -1.90 \\
+%    MACS 0647  & 1.66 & 0.39 &  0.36 \\
+%    MACS 0744  & 1.08 & 0.27 & -0.23 \\
+%    CLJ 1226   & 0.42 & 0.11 &  2.24 
+%  \end{tabular}
+%  \caption{Just the ellipticities}
+%\end{table}
+
+\end{document}

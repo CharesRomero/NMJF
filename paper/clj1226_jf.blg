@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: clj1226_jf.aux
+The style file: apj.bst
+Database file #1: clj1226_jfNotes.bib
+Database file #2: mycluster.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 40 entries,
+            3010 wiz_defined-function locations,
+            877 strings with 16819 characters,
+and the built_in function-call counts, 22105 in all, are:
+= -- 1622
+> -- 2045
+< -- 14
++ -- 680
+- -- 730
+* -- 2105
+:= -- 4282
+add.period$ -- 40
+call.type$ -- 40
+change.case$ -- 260
+chr.to.int$ -- 40
+cite$ -- 40
+duplicate$ -- 787
+empty$ -- 1111
+format.name$ -- 783
+if$ -- 4244
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 36
+newline$ -- 124
+num.names$ -- 163
+pop$ -- 282
+preamble$ -- 1
+purify$ -- 260
+quote$ -- 0
+skip$ -- 654
+stack$ -- 0
+substring$ -- 820
+swap$ -- 28
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 360
+warning$ -- 0
+while$ -- 148
+width$ -- 0
+write$ -- 400
