@@ -1,0 +1,506 @@
+\documentclass[iop,numberedappendix,apj]{emulateapj}
+%\documentclass[iop,numberedappendix,apj]{aastex}
+%\documentclass{article}
+%\usepackage{emulateapj}
+%\pdfoutput=1
+\usepackage{color}
+\usepackage{amssymb}
+%\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+%\usepackage{breakurl}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{epsfig}
+%\usepackage[hyphens]{url}
+%\usepackage{csquotes}
+%\usepackage{lscape}
+\usepackage{afterpage}
+
+\usepackage[tbtags]{amsmath}
+\usepackage{hyperref,xcolor}
+\hypersetup{colorlinks,linkcolor={blue!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}}
+\setlength{\tabcolsep}{0.04in} 
+%\usepackage{epsfig}
+%\usepackage{fullpage}
+%\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NOTES ON COMPILING / PRINTING THIS DOCUMENT
+%%% do the latex <filename>
+%%% dvips -O 0cm,2.0cm <filename.dvi>
+%%% dvips -O 0cm,2.0cm clash_pressures.dvi
+
+\include{latex_commands}
+\defcitealias{arnaud2010}{A10}
+\defcitealias{cavagnolo2009}{C09}
+\defcitealias{bulbul2010}{B10}
+\defcitealias{vikhlinin2006}{V06}
+
+\newcommand{\quotes}[1]{``#1''}
+
+\slugcomment{}
+\shortauthors{Romero \etal}
+\shorttitle{Joint SZE Map Fitting with MUSTANG and Bolocam}
+%altaffilmark{#}
+
+\begin{document}
+
+\title{Joint Fitting of CLJ1226.9}
+\author{
+%  Order TBD ,
+  Charles E. Romero\altaffilmark{1,2,3},
+  Matthew McWilliam \altaffilmark{4},
+  Juan Macias-Perez \altaffilmark{4},
+  NIKA Collaboration \altaffilmark{4}
+} 
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\altaffiltext{1}{Institut de Radioastronomie Millim\'{e}trique
+300 rue de la Piscine, Domaine Universitaire
+38406 Saint Martin d'H\`{e}res, France} 
+\altaffiltext{2}{Department of Astronomy, University of Virginia,
+  P.O. Box 400325, Charlottesville, VA 22904, USA}
+\altaffiltext{3}{National Radio Astronomy Observatory, 520 Edgemont Rd.,
+Charlottesville, VA 22904, USA}
+\altaffiltext{4}{Department of Physics, Math, and Astronomy,
+  California Institute of Technology, Pasadena, CA 91125, USA}
+\altaffiltext{5}{Author contact: \email{romero@iram.fr}}
+%\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+We present pressure profiles of galaxy clusters determined from high resolution 
+\end{abstract}
+
+\keywords{galaxy clusters: individual: CLJ1226.9+3352}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\textcolor{red}{Trimming my own notes now.}
+
+Galaxy clusters are the largest gravitationally bound objects in the universe and thus serve as ideal cosmological probes 
+and astrophysical laboratories. Within a galaxy cluster, the gas in the intracluster medium (ICM) constitutes 90\% of the
+baryonic mass \citep{vikhlinin2006b} and is directly observable in the X-ray due to bremsstrahlung emission. 
+At millimeter and sub-millimeter wavelengths, the ICM is observable via the Sunyaev-Zel'dovich (SZ) effect 
+\citep{sunyaev1972}: the inverse Compton scattering of cosmic microwave background (CMB) photons off of
+the hot ICM electrons. The thermal SZ is observed as an intensity decrement relative to the CMB at wavelengths longer 
+than $\sim$1.4 mm (frequencies less than $\sim$220 GHz). The amplitude of the thermal SZ is proportional to the integrated
+line-of-sight electron pressure, and is often parameterized as Compton $y$: $y = (\sigma_T / m_e c^2) \int P_e dl$, where
+$\sigma_T$ is the Thomson cross section, $m_e$ is the electron mass, $c$ is the speed of light, and $P_e$ is the electron
+pressure.
+%At longer radio wavelengths, if relativistic electrons are present, parts of the ICM may emit synchrotron emission.
+
+%\textcolor{red}{[I need to revise this paragraph.]}
+Cosmological constraints derived from galaxy cluster samples are generally limited by the accuracy of mass calibration of 
+galaxy clusters \citep[e.g.][]{hasselfield2013, reichardt2013}, which is often calculated via a scaling relation with 
+respect to some integrated observable quantity. Scatter in the scaling relations will then depend on the regularity of 
+clusters and the adopted integration radius of the clusters. Determining pressure profiles of galaxy clusters provides an 
+assessment of the relative impact and frequency of various astrophysical processes in the ICM and can refine the choice of 
+extent of galaxy clusters to reduce the scatter in scaling relations.
+
+In the core of a galaxy cluster, some observed astrophysical processes include shocks and cold fronts 
+\citep[e.g.][]{markevitch2007}, sloshing \citep[e.g.][]{fabian2006}, and X-ray cavities \citep{mcnamara2007}. 
+It is also theorized that helium sedimentation should occur, most noticeably in low redshift, dynamically-relaxed 
+clusters \citep{abramopoulos1981, gilfanov1984} 
+and recently the expected helium enhancement via sedimentation has been numerically simulated \citep{peng2009}. 
+This would result in an offset between X-ray and SZ derived pressure profiles if not accounted for correctly.
+
+At large radii ($R \gtrsim R_{500}$),\footnote{$R_{500}$ is the radius at which the enclosed average mass density is 
+500 times the critical density, $\rho_c(z)$, of the universe} equilibration timescales are longer, accretion is ongoing, 
+and hydrostatic equilibrium (HSE) is a poor approximation. Several numerical simulations show that the fractional contribution
+from non-thermal pressure increases with radius \citep{shaw2010,battaglia2012,nelson2014}. 
+For all three studies, non thermal pressure fractions between 15\% and 30\% are found at ($R \sim R_{500}$)
+for redshifts $0 < z < 1$. Additionally, clumping is expected to increase with radius \citep{kravtsov2012}, and is expected to
+increase the scatter of pressure profiles at large radii \citep{nagai2011} as well as biasing X-ray derived gas density high,
+and thus X-ray derived thermal pressure low \citep{battaglia2015}.
+
+However, the intermediate region, between the core and outer regions of the galaxy cluster, 
+is often the best region to apply self-similar scaling relations derived from HSE to describe simulations 
+and observations \citep[e.g.][]{kravtsov2012}. Moreover, both simulations and observations find low
+cluster-to-cluster scatter in pressure profiles within this intermediate radial range \citep[e.g.][]{borgani2004,
+nagai2007,arnaud2010,bonamente2012,planck2013a,sayers2013}.
+
+There are many existing facilities capable of making SZ observations, but most have
+angular resolutions of one arcminute or larger. In recent years, the SZ community has adopted the pressure profile
+presented in \citet{arnaud2010} (hereafter, A10), who derive their pressure profiles from X-ray data from the 
+REXCESS sample of 31 nearby ($z < 0.2$) clusters out to $R_{500}$ and numerical simulations for larger radii. The
+adoption of the A10 pressure profile has allowed for the extraction of an integrated observable quantity which,
+via scaling relations, can then be used to determine the mass of the clusters. In this paper, we use high resolution
+SZ data to test the validity of this pressure profile in our sample of 14 clusters at intermediate redshifts.
+
+The MUSTANG camera \citep{dicker2008}
+on the 100 meter Robert C. Byrd Green Bank Telescope \citep[GBT, ][]{jewell2004} with its angular resolution of 9\asec 
+(full-width, half-maximum FWHM) is one of only a few SZ effect instruments with sub-arcminute resolution.
+However, MUSTANG's instantaneous field of view (FOV) limits its sensitivity to scales larger than $1$\amin. 
+To probe a wider range of scales we complement our MUSTANG data with SZ data from Bolocam \citep{glenn1998}. 
+Bolocam is a 144-element bolometer
+array on the Caltech Submillimeter Observatory (CSO) with a beam FWHM of 58\asecs at 140 GHz and circular FOV with 8\amins 
+diameter, which is well matched to the angular size of $R_{500}$ ($\sim 4$\amin) of the clusters in our sample. 
+
+This paper is organized as follows. In Section~\ref{sec:obs} we describe the MUSTANG and Bolocam observations and reduction. 
+In Section~\ref{sec:jointfitting} we review the method used to jointly fit pressure profiles to MUSTANG and Bolocam data. We
+present results from the joint fits in Section~\ref{sec:pp_constraints} and compare our results to X-ray derived pressures 
+in Section~\ref{sec:xray_comp}. 
+Throughout this paper we assume a $\Lambda$CDM cosmology with $\Omega_m = 0.3$, $\Omega_{\lambda} = 0.7$, and $H_0 = 70$ 
+km s$^{-1}$ Mpc$^{-1}$.
+%consistent with the 9-year \emph{Wilkinson Microwave Anisotropy Probe} (WMAP) results reported in \cite{hinshaw2013}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Observations and Data Reduction}
+\label{sec:obs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Sample}
+
+\begin{deluxetable*}{lllllllllll}
+\tabletypesize{\scriptsize}
+\tablecolumns{10}
+\tablewidth{0pt} 
+\tablecaption{CLASH cluster properties \label{tbl:cluster_properties}}
+\tablehead{ 
+    \colhead{Cluster} & \colhead{$z$} & \colhead{$M_{500}$} & \colhead{$P_{500}$} & \colhead{$R_{500}$} & \colhead{$T_x^a$} 
+              & \colhead{$T_x^b$} & \colhead{$T_{mg}$} & \colhead{Dynamical} & \colhead{$\Delta r_0$} \\
+              \colhead{}  & \colhead{} & \colhead{($10^{14} M_{\odot}$)} & \colhead{(keV/cm$^{3}$)} & \colhead{(kpc)} & 
+              \colhead{(keV)} & \colhead{(keV)} & \colhead{(keV)} & \colhead{state} & \colhead{(\asec)}
+}
+\startdata
+
+    \textbf{CLJ1226}     & 0.888 & 7.8  & 0.01184   & 1000   & 12.0 & 11.7 & 8.39 & --      & 15.3  \\
+\enddata
+\tablecomments{$z$, $M_{500}$, and $T_X^a$ are taken from \citet{mantz2010}:  $T_X^a$ is calculated from a 
+  single spectrum over $0.15 R_{500} < r < R_{500}$ for each cluster. $T_X^b$ is from \citet{morandi2015},
+  and is calculated over $0.15 R_{500} < r < 0.75 R_{500}$.  $T_{mg}$ is a fitted gas mass weighted temperature,
+  determined by fitting the ACCEPT \citep{cavagnolo2009} temperature profiles to the profile found in
+  \citet{vikhlinin2006}. The dynamical states: cool core (CC) and disturbed (D) are taken from (and defined in)
+  \citet{sayers2013}. The bolded clusters are the 14 clusters in our sample.
+  $\Delta r_0$ denotes the offset between the ACCEPT and Bolocam centroids. }
+\end{deluxetable*}
+
+\begin{deluxetable*}{lllllllllll}
+\tabletypesize{\footnotesize}
+\tablecolumns{10}
+\tablewidth{0pt} 
+\tablecaption{Bolocam and MUSTANG observational properties. \label{tbl:cluster_obs}}
+\tablehead{ 
+    \colhead{Cluster} & \colhead{$z$} & \colhead{R.A.} & \colhead{Decl.} & 
+              \colhead{$T_{obs,B}$} & \colhead{Noise$_{B}$} & \colhead{A10$_{B}$} & 
+              \colhead{$T_{obs,M}$} & \colhead{Noise$_{M}$} & \colhead{A10$_{M}$}    \\
+            & \colhead{} & \colhead{(J2000)} & \colhead{(J2000)} &  
+              \colhead{(hours)} & \colhead{$\mu K_{CMB}$-amin} & \colhead{($\sigma$)} &
+              \colhead{(hours)} & \colhead{$\mu$Jy/bm}        & \colhead{($\sigma$)}
+}
+\startdata
+   \textbf{CLJ1226}     & 0.888 & 12:26:57.9 & +33:32:49 & 11.8 & 22.9 & 13.7 & 4.9  & 85.6 & 9.43 
+\enddata
+\tablecomments{Subscripts $_{B}$ and $_{M}$ denote Bolocam and MUSTANG properties respectively. Noise$_{B}$
+  and $T_{obs,B}$ are those reported in \citet{sayers2013}. Noise$_{M}$ is calculated on MUSTANG maps with 
+  $10$\asecs smoothing, in the central arcminute. $T_{obs}$ are the integration times (on source) for the 
+  given instruments. A10$_B$ and A10$_M$ values indicate the significance (in $\sigma$) of $P_0$ when we
+  fit a spherical A10 \citep{arnaud2010} profile (see Section~\ref{sec:bulk_ICM}).}
+\end{deluxetable*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{NIKA Observations and Reduction}
+\label{sec:nikaobs}
+
+%%% How was the transfer function calculated 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{MUSTANG Observations and Reduction}
+\label{sec:musobs}
+
+MUSTANG is a 64 pixel array of Transition Edge Sensor (TES) bolometers arranged in an $8 \times 8$ array
+located at the Gregorian focus on the 100 m GBT. Operating at 90 GHz (81--99~GHz),
+MUSTANG has an angular resolution of 9\asec and pixel spacing of 0.63$f \lambda$ resulting in a FOV
+of 42\asec. More detailed information about the instrument can be found in \citet{dicker2008}.
+
+Our observations and data reduction are described in detail in \citet{romero2015a}, and we briefly review them
+here. Absolute flux calibrations are based on the planets Mars, Uranus, or Saturn, nebulae, or the star Betelgeuse 
+($\alpha_{Ori}$).
+
+%%% How was the transfer function calculated 
+\footnote{MUSTANG data is publicaly available at 
+\href{http://irsa.ipac.caltech.edu/data/Planck/release\_2/ancillary-data/bolocam/}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bolocam Observations and Reduction}
+\label{sec:bolocamobs}
+
+Bolocam is a 144-element camera that was a facility instrument on the Caltech Submillimeter Observatory (CSO) from
+2003 until 2012. Its field of view is 8\amins in diameter, and at 140 GHz it has a resolution of 58\asecs FWHM
+(\citet{glenn1998,haig2004}). The clusters were observed with a Lissajous pattern that results in a tapered
+coverage dropping to 50\% of the peak value at a radius of roughly 5\amin, and to 0 at a radius of 10\amin.
+The Bolocam maps used in this analysis are $14\arcmin \times 14\arcmin$. The Bolocam data 
+\footnote{Bolocam data is publicaly available at 
+\href{http://irsa.ipac.caltech.edu/data/Planck/release\_2/ancillary-data/bolocam/}
+{http://irsa.ipac.caltech.edu/data/Planck/release\_2/ancillary-data/} 
+\href{http://irsa.ipac.caltech.edu/data/Planck/release\_2/ancillary-data/bolocam/}{bolocam/}.} 
+are the same as those used in \citet{czakon2015} and \citet{sayers2013}; the details of the reduction are 
+given therein, along with \citet{sayers2011}. 
+The reduction and calibration is similar to that used for MUSTANG, and Bolocam achieves a 
+5\% calibration accuracy and 5\asecs pointing accuracy.
+
+%%% How was the transfer function calculated 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Joint Map Fitting Technique}
+\label{sec:jointfitting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Overview}
+\label{sec:jf_overview}
+
+The joint map fitting technique used in this paper is described in detail in \citet{romero2015a}. We review
+it briefly here. The general approach follows that of a least squares fitting procedure, which assumes that
+we can make a model map as a linear combination of model components. 
+
+This linear combination can be written as:
+\begin{equation}
+  \vec{d}_m = \mathbf{A} \vec{a}_m,
+\end{equation}
+where $d_m$ is the total model, each column in $\mathbf{A}$ is a filtered model component (Section~\ref{sec:components}), 
+and $\vec{a}_m$ is 
+an array of amplitudes of the components. There are up to four types of components for which fit: 
+a bulk component, point source(s), residual component(s), and a mean level. Of these, we produce a
+sky model for the bulk component and point source to be filtered. The residual component is calculated 
+directly as a filtered component.
+
+We wish to fit $\vec{d}_m$ to our data, $\vec{d}$, and allow for a calibration offset between Bolocam and
+MUSTANG data. We therefore define our data vector as:
+\begin{equation}
+  \vec{d} = [ \vec{d}_{B}, k \vec{d}_{M}, k ] ,
+\end{equation}
+where $\vec{d}_{B}$ is the Bolocam data, $\vec{d}_{M}$ is the MUSTANG data, and $k$ is the calibration offset of
+MUSTANG relative to Bolocam, with an RMS uncertainty of 11.2\%.
+
+We use the $\chi^2$ statistic as our goodness of fit:
+\begin{equation}
+  \chi^2 = (\overrightarrow{d} - \overrightarrow{d}_m)^T \mathbf{N}^{-1} (\overrightarrow{d} - \overrightarrow{d}_m),
+\end{equation}
+where $\mathbf{N}$ is the covariance matrix; however, because we wish to fit for $k$ in addition to the 
+amplitude of model components, we no longer have
+completely linearly independent variables, and thus we employ MPFIT \citep{markwardt2009} to solve for these
+variables.
+
+\subsection{Preprocessing}
+
+\subsection{Mean Level}
+\label{sec:mean_level}
+
+%%% JSayers: Bolocam too? Yes...if done, both are done. But I removed the mean level fit in the simple sense.
+%%% I don´t think I fit out a Bolocam mean level, because it was so low.
+Similar to \citet{czakon2015}, we wish to account for a mean level (signal offset) in the MUSTANG maps.
+We do not wish to fit for a mean level simultaneously as a bulk component given the degeneracies. Therefore,
+to determine the mean level independent of the other components, we create a MUSTANG noise map
+% from time-flipped TOD 
+and calculate the mean within the inner arcminute for each cluster. This mean is then subtracted before 
+the other components are fit. 
+
+\subsubsection{Point Sources}
+\label{sec:ptsrcs}
+
+For MUSTANG, point sources are treated in the same manner as in \citet{romero2015a}. 
+A point source is identified by NIKA \citep{adam2015} in CLJ1226, which is posited to be a submillimeter galaxy (SMG) 
+behind the cluster. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For the Bolocam image
+
+\subsubsection{Centroid}
+
+The default centroids used when gridding our bulk ICM component are the ACCEPT centroids. Given the offsets
+between ACCEPT and Bolocam centroids (Table~\ref{tbl:cluster_properties}), we perform a second set of
+fits where we grid the bulk ICM component using the Bolocam centroids. The ACCEPT centroid are taken to be the
+X-ray peaks unless their centroiding algorithm produced a centroid more than 70 kpc from the X-ray peak, in which
+case they adopt that centroid \citep{cavagnolo2008a}. 
+%We do not find significant changes in
+%the fitted gNFW parameters (Section~\ref{sec:pp_constraints}), 
+
+\subsection{Parametric Fits: gNFW}
+\label{sec:parfits}
+
+The cluster is taken to be a 
+spherically symmetric 3D electron pressure profile as parameterized by a generalized Navarro, Frenk,
+and White profile \citep[hereafter, gNFW][]{navarro1997,nagai2007}:
+\begin{equation}
+  \Tilde{P} = \frac{P_0}{(C_{500} X)^{\gamma} [1 + (C_{500} X)^{\alpha}]^{(\beta - \gamma)/\alpha}}
+\end{equation}
+where $X = R / R_{500}$, and $C_{500}$ is the concentration parameter; one can also write ($C_{500} X$) as
+($R / R_s$), where $R_s = R_{500}/C_{500}$. $\Tilde{P}$ is the electron pressure in units of the characteristic
+pressure $P_{500}$. This pressure profile is integrated along the line of sight to produce 
+a Compton $y$ profile, given as 
+\begin{equation}
+  y(r) = \frac{P_{500} \sigma_{T}}{m_e c^2} \int_{-\infty}^{\infty} \Tilde{P}(r,l) dl
+\end{equation}
+where $R^2 = r^2 + l^2$, $r$ is the projected physical radius, and $l$ is the distance from the center of the cluster
+along the line of sight. Once integrated, $y(r)$ is gridded as $y(\theta)$ ($\theta$ being the angular radius) 
+and is realized as two maps with
+the same astrometry as the MUSTANG and Bolocam data maps (pixels of 1\asecs and 20\asecs on a side, respectively). 
+%From here, we produce two model maps: one for Bolocam and one for MUSTANG. 
+In each case, we convolve the Compton $y$ map by the appropriate beam shape. For Bolocam we use a Gaussian with FWHM
+$= 58$\asec, and for MUSTANG we use the double Gaussian as determined in \citet{romero2015a}.
+
+\subsubsection{Parameter Space}
+\label{sec:param_space}
+
+As in \citet{romero2015a}, we fix MUSTANG's centroid, but allow Bolocam's pointing to vary by $\pm 10$\asecs 
+in RA and Dec with a prior on Bolocam's radial pointing accuracy with an RMS uncertainty of $5$\asec. Our 
+approach to find the absolute calibration offset between Bolocam and MUSTANG is the same as in
+\citet{romero2015a} (see also Section~\ref{sec:jf_overview}). 
+
+In \citet{romero2015a}, we performed a grid search over $\gamma$ and $C_{500}$, marginalizing over $P_0$,
+where $\alpha$ and $\beta$ are fixed to values determined from previous studies. We find that fixing
+$\alpha$ and $\beta$ at different values, the pressure profiles are in very 
+good agreement with one another and that the 
+differences in $\chi^2$ values between these fits is not significant. Thus, for our fits 
+we assume the values of $\alpha$ and $\beta$ given in \citetalias{arnaud2010}.
+
+We search over $0 < \gamma < 1.3$ in steps of $\delta \gamma = 0.1$, and over
+$0.1 < C_{500} < 3.3$ in steps of $\delta C_{500} = 0.1$. To create models in finer steps than $\delta \gamma$ 
+and $\delta C_{500}$, we interpolate filtered model maps from nearest neighbors from the grid of original 
+filtered models. 
+
+\subsection{Non Parametric Fits: radial pressure bins}
+
+\subsection{Geometric Deprojection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SZ Pressure Profile Constraints}
+\label{sec:pp_constraints}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have constrained the gNFW parameters $P_0$, $C_{500}$, and $\gamma$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                SOME FIGURES                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Systematics}
+\label{sec:systematics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                  Table of just the ensembles (and A10 to compare against)                           %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%    END OF THAT TABLE!    NOW LET'S PUT IN THE TABLE WE WANT INSTEAD                                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                             END OF THAT TABLE!                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                NEXT SECTION                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Integrated Compton $Y$ Scaling Relations}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                SOME FIGURES                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%                    CONCLUSIONS!!!                           %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+We developed an algorithm to jointly fit gNFW pressure profiles to clusters observed via the SZ
+effect with MUSTANG and Bolocam. We apply this algorithm to 14 clusters and find the profiles are 
+consistent with a universal pressure profile found in \citet{arnaud2010}. Specifically, the 
+pressure profile is of the form:
+\begin{equation*}
+  \Tilde{P_e} = \frac{P_0}{(C_{500} X)^{\gamma} [1 + (C_{500} X)^{\alpha}]^{(\beta - \gamma)/\alpha}},
+%  \label{eqn:norm_gnfw}
+\end{equation*}
+where we fixed $\alpha$ and $\beta$ to values found in \citet{arnaud2010}. 
+
+\section*{Acknowledgements}
+
+Support for CR was provided through the Grote Reber Fellowship at NRAO. Support for CR, PK, and AY was 
+provided by the Sudent Observing Support (SOS) program. Support for TM is provided by the National Research 
+Council Research Associateship Award at the U.S.\ Naval Research Laboratory. Basic research in radio 
+astronomy at NRL is supported by 6.1 Base funding. JS was partially supported by a
+Norris Foundation CCAT Postdoctoral Fellowship and by NSF/AST-1313447.
+
+The National Radio Astronomy Observatory is a facility of the National Science Foundation which is operated
+under cooperative agreement with Associated Universities, Inc. The GBT observations used in this paper were
+taken under NRAO proposal IDs GBT/08A-056, GBT/09A-052, GBT/09C-020, GBT/09C-035, GBT/09C-059, GBT/10A-056, 
+GBT/10C-017, GBT/10C-026, GBT/10C-031, GBT/10C-042, GBT/11A-001, and GBT/11B-009 and VLA/12A-340.
+We  thank the GBT operators Dave Curry, Greg Monk, Dave Rose, Barry Sharp, and Donna Stricklin for their
+assistance. 
+
+The Bolocam observations presented here were obtained form the Caltech Submillimeter Observatory, which,
+when the data used in this analysis were taken, was operated by the California Institute of Technology under
+cooperative agreement with the National Science Foundation. Bolocam was constructed and commissioned using funds
+from NSF/AST-9618798, NSF/AST-0098737, NSF/AST-9980846, NSF/AST-0229008, and NSF/AST-0206158. Bolocam observations
+were partially supported by the Gordon and Betty Moore Foundation, the Jet Propulsion Laboratory Research and
+Technology Development Program, as well as the National Science Council of Taiwan grant NSC100-2112-M-001-008-MY3.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%                       APPENDIX                              %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{CLJ 1226 (z=0.89)}
+\label{sec:results_clj1226}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+CLJ 1226 is a well studied high redshift cluster \citep[e.g.][]{mroczkowski2009,bulbul2010,adam2015}. 
+\citet{adam2015} find a point source at RA 12:12:00.01 and Dec +33:32:42 with a flux density of 
+$6.8 \pm 0.7 \text{ (stat.)} \pm 1.0 \text{ (cal.)}$ mJy at 260 GHz and $1.9 \pm 0.2 \text{ (stat.)}$ at 150 GHz. 
+This is not the same point source seen in \citet{korngut2011}, which is reported as a point source
+with $4.6\sigma$ significance in surface brightness, and can be fit in our current analysis as a point source 
+with a flux density of $0.33 \pm 0.13$ mJy. A short VLA filler observation (VLA-12A-340, D-array, at 7 GHz) 
+was performed to follow up this potential source. To a limit of $\sim 50 {\rm \mu Jy}$ nothing is seen, 
+other than the clearly spatially distinct radio source associated with the BCG at the cluster center 
+(1 mJy at 7 GHz and 3.2 mJy in NVSS). In contrast, the point source found in \citet{adam2015} is fit to our 
+data with a flux density of $0.36 \pm 0.11$ mJy. Given the slight increase in significance of the point source
+from \citet{adam2015}, we adopt that point source location for our pressure profile analysis of CLJ 1226.
+ 
+%%% K09 flux is 0.34 +/- 0.13 mJy in our maps. Now I've written it in. Jan 2016.
+
+In the previous analysis of the MUSTANG data, \citet{korngut2011} find a ridge of significant substructure after 
+subtracting a bulk SZ profile (N07, fitted to SZA data). They find that this ridge, southwest of the cluster
+center, alongside X-ray profiles, are consistent with a merger scenario. However, in this work, we do not find
+any significant substructure after fitting a bulk component.
+%\textcolor{red}{[I will do an analysis with the point source found in Korngut+2011. The question is if I already 
+%have the point source modelled (and to find it).}
+
+\section{Data Products}
+
+We have made MUSTANG data products for the sample of clusters analysed in this paper available at: 
+\protect{\url{https://safe.nrao.edu/wiki/bin/view/GB/Pennarray/MUSTANG_CLASH}}. Links to accompanying
+Bolocam and ACCEPT data are available from this website as well. In particular, we have publicized the final
+data maps, noise maps, and signal-to-noise (SNR) maps used in this analysis, as well as transfer functions
+for individual clusters. Further documentation is available on the website.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%                    BIBLIOGRAPHY!!!                          %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{apj}
+\bibliography{mycluster}
+\label{references}
+
+\end{document}
+
+

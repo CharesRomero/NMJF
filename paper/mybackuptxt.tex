@@ -1,0 +1,1677 @@
+\documentclass[iop,numberedappendix,apj]{emulateapj}
+%\documentclass[iop,numberedappendix,apj]{aastex}
+%\documentclass{article}
+%\usepackage{emulateapj}
+%\pdfoutput=1
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{url}
+%\usepackage{lscape}
+\usepackage{afterpage}
+
+\usepackage[tbtags]{amsmath}
+\usepackage{hyperref,xcolor}
+\hypersetup{colorlinks,linkcolor={blue!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}}
+\setlength{\tabcolsep}{0.04in} 
+%\usepackage{epsfig}
+%\usepackage{fullpage}
+%\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NOTES ON COMPILING / PRINTING THIS DOCUMENT
+%%% do the latex <filename>
+%%% dvips -O 0cm,2.0cm <filename.dvi>
+%%% dvips -O 0cm,2.0cm clash_pressures.dvi
+
+\include{latex_commands}
+
+\slugcomment{}
+\shortauthors{Romero \etal}
+\shorttitle{Joint SZE Map Fitting with MUSTANG and Bolocam}
+%altaffilmark{#}
+
+\begin{document}
+
+\title{Galaxy Cluster Pressure Profiles as Determined by Sunyaev Zel'dovich Effect 
+  Observations with MUSTANG and Bolocam II: Joint Analysis of Fourteen Clusters}
+\author{
+%  Order TBD ,
+  Charles E. Romero\altaffilmark{1,2},
+  Brian S. Mason\altaffilmark{3},
+  Jack Sayers\altaffilmark{4}
+  Tony Mroczkowski\altaffilmark{5,6},
+  Tracy E. Clarke\altaffilmark{6},
+  Craig Sarazin\altaffilmark{7},
+  Alexander H.\ Young\altaffilmark{8},
+  Jonathan Sievers\altaffilmark{9},
+  Simon R. Dicker\altaffilmark{10},
+  Erik D.\ Reese\altaffilmark{11},
+  Nicole Czakon \altaffilmark{4,12},
+  Mark Devlin\altaffilmark{10},
+  Phillip M.\ Korngut\altaffilmark{4},
+  Sunil Golwala\altaffilmark{4}
+} 
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\altaffiltext{1}{Institut de Radioastronomie Millim\'{e}trique
+300 rue de la Piscine, Domaine Universitaire
+38406 Saint Martin d'H\`{e}res, France} 
+\altaffiltext{2}{Author contact: \email{romero@iram.fr}}
+\altaffiltext{3}{National Radio Astronomy Observatory, 520 Edgemont Rd.,
+Charlottesville, VA 22904, USA}
+\altaffiltext{4}{Department of Physics, Math, and Astronomy,
+  California Institute of Technology, Pasadena, CA 91125, USA}
+\altaffiltext{5}{National Research Council Fellow} 
+\altaffiltext{6}{U.S.\ Naval Research Laboratory,
+  4555 Overlook Ave SW, Washington, DC 20375, USA}
+\altaffiltext{7}{Department of Astronomy, University of Virginia,
+  P.O. Box 400325, Charlottesville, VA 22904, USA}
+\altaffiltext{8}{MIT Lincoln Laboratories}
+\altaffiltext{9}{Astrophysics \& Cosmology Research Unit, University of KwaZulu-Natal,
+  Private Bag X54001, Durban 4000, South Africa}
+\altaffiltext{10}{Department of Physics and Astronomy, University of
+  Pennsylvania, 209 South 33rd Street, Philadelphia, PA, 19104, USA}
+\altaffiltext{11}{Department of Physics, Astronomy, and Engineering, 
+  Moorpark College, 7075 Campus Rd., Moorpark, CA 93021, USA} 
+\altaffiltext{12}{Academia Sinica, 128 Academia Road, Nankang, Taipei 115, Taiwan}
+%\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+We present pressure profiles of galaxy clusters determined from high resolution 
+Sunyaev-Zel'dovich (SZ) effect observations of fourteen clusters, which span the
+redshift range $ 0.25 < z < 0.89$. We compare our pressure profiles to those from the X-ray data 
+presented by the ACCEPT collaboration, both under the assumption of spherical symmetry. 
+The fitting procedure simultaneously
+fits spherical cluster models to MUSTANG and Bolocam data. In this analysis, we adopt the 
+generalized NFW parameterization of pressure profiles to produce our models.
+Our constraints on pressure profile parameters, in this study $\gamma$, $C_{500}$, and $P_0$,
+are consistent with those in previous studies, but on individual clusters we find discrepancies 
+with pressure profiles from ACCEPT. We find for all clusters in our sample: 
+$[\gamma,C_{500},P_0] = [0.3,1.3,7.94]$, for cool core clusters: $[\gamma,C_{500},P_0] = [0.6,0.9,3.55]$,
+and for disturbed clusters: $[\gamma,C_{500},P_0] = [0.0,1.5,12.6]$.
+We investigate potential sources of these discrepancies, especially in the
+context of cluster geometry, electron temperature of the intracluster medium, and
+substructure. Three of the fourteen clusters have established substructure, while an additional
+two clusters exhibit potential substructure.
+\end{abstract}
+
+\keywords{galaxy clusters: general --- galaxy clusters}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textcolor{red}{[PREFACE: I have added some comments throughout this draft in bracketed and red text. I think I've added
+most comments in the relevant places. That said, I have yet to do a general revision of text in
+Section~\ref{sec:ind_notes}. I have left some figure references in that section, even if the figures don't exist in
+this file. The question is whether to include them.]}
+
+Galaxy clusters are the largest gravitationally bound objects in the universe and thus serve as ideal cosmological probes 
+and astrophysical laboratories. Within a galaxy cluster, the gas in the intracluster medium (ICM) constitutes 90\% of the
+baryonic mass \citep{vikhlinin2006b} and is directly observable in the X-ray due to bremsstrahlung emission. 
+At millimeter and sub-millimeter wavelengths, the ICM is observable via the Sunyaev-Zel'dovich effect (SZE) 
+\citep{sunyaev1972}: the inverse Compton scattering of cosmic microwave background (CMB) photons off of
+the hot ICM electrons. The thermal SZE is observed as an intensity decrement relative to the CMB at wavelengths longer 
+than $\sim$1.4 mm (frequencies less than $\sim$220 GHz). The amplitude of the thermal SZE is proportional to the integrated
+line-of-sight electron pressure, and is often parameterized as Compton y: $y = (\sigma_T / m_e c^2) \int P_e dl$, where
+$\sigma_T$ is the Thomson cross section, $m_e$ is the electron mass, $c$ is the speed of light, and $P_e$ is the electron
+pressure.
+%At longer radio wavelengths, if relativistic electrons are present, parts of the ICM may emit synchrotron emission.
+
+%\textcolor{red}{[I need to revise this paragraph.]}
+Cosmological constraints are generally limited by the accuracy of mass calibration of galaxy clusters 
+\citep[e.g.][]{hasselfield2013, reichardt2013}, which is often calculated via a scaling relation with respect to some 
+integrated observable quantity. Scatter in the scaling relations will then depend on the regularity of
+clusters and the assumed extent of the clusters. Determining pressure profiles of galaxy clusters provides an assessment of 
+the relative impact and frequency of various astrphysical processes in the ICM and can refine the choice of extent of 
+galaxy clusters to reduce the scatter in scaling relations.
+
+In the core of a galaxy cluster, some observed astrophysical processes include shocks and cold fronts 
+\citep[e.g.][]{markevitch2007}, sloshing \citep[e.g.][]{fabian2006}, and X-ray cavities \citep{mcnamara2007}. 
+It is also theorized that helium sedimentation should occur, most noticeably in low redshift, dynamically-relaxed 
+clusters \citep{abramopoulos1981, gilfanov1984} 
+and recently the expected helium enhancement via sedimentation has been numerically simulated \citep{peng2009}. 
+This would result in an offset between X-ray and SZE derived pressure profiles.
+
+At large radii ($R \gtrsim R_{500}$),\footnote{$R_{500}$
+is the radius at which the enclosed average mass density is 500 times the critical density, 
+$\rho_c(z)$, of the universe} equilibration timescales are longer, accretion is ongoing, 
+and hydrostatic equilibrium (HSE) is a poor approximation. 
+Several numerical simulations show that the fractional contribution
+ from non-thermal pressure increases with radius \citep{shaw2010,battaglia2012,nelson2014}. 
+For all three studies, non thermal pressure fractions between 15\% and 30\% are found at ($R \sim R_{500}$)
+for redshifts $0 < z < 1$. However, the intermediate radii, between the core and outer regions of the 
+galaxy cluster, offer a region where self-similar scalings derived from HSE can be used to describe simulations 
+and observations \citep[e.g.][]{kravtsov2012}. Moreover, both simulations and observations find low
+cluster-to-cluster scatter in pressure profiles within this intermediate radial range \citep[e.g.][]{borgani2004,
+nagai2007,arnaud2010,bonamente2012,planck2013a,sayers2013}.
+
+While many telescopes capable of making SZE observations are already operational or are being built, most have
+angular resolutions of one arcminute or larger. The MUSTANG camera \citep{dicker2008}
+on the 100 meter Robert C. Byrd Green Bank Telescope \citep[GBT, ][]{jewell2004} with its angular resolution of 9\asec 
+(full-width, half-maximum FWHM) and sensitivity up to $1$\amin, set by MUSTANG's instantaneous field of view (FOV)
+is one of only a few SZE instruments with sub-arcminute resolution.
+To probe a wider range of scales we complement our MUSTANG data with SZE data from Bolocam \citep{glenn1998}. 
+Bolocam is a 144-element bolometer
+array on the Caltech Submillimeter Observatory (CSO) with a beam FWHM of 58\asecs at 140 GHz and circular FOV with 8\amins 
+diameter, which is well matched to the angular size of $R_{500}$ ($\sim 4$\amin) for both of the clusters in our sample. 
+
+This paper is organized as follows. In Section~\ref{sec:obs} we describe the MUSTANG and Bolocam observations and reduction. 
+In Section~\ref{sec:jointfitting} we review the method used to jointly fit pressure profiles to MUSTANG and Bolocam data. We
+present results from the joint fits in Section~\ref{sec:pp_constraints} and compare our results to X-ray derived pressures 
+in Section~\ref{sec:xray_comp}. 
+Throughout this paper we assume a flat $\Lambda$CDM cosmology with $\Omega_m = 0.3$, $\Omega_{\lambda} = 0.7$, and $H_0 = 70$ 
+km s$^{-1}$ Mpc$^{-1}$, consistent with the 9-year \emph{Wilkinson Microwave Anisotropy Probe} (WMAP) results reported in
+ \cite{hinshaw2013}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Observations and Data Reduction}
+\label{sec:obs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Sample}
+
+Our cluster sample is based primarily on the Cluster Lensing And Supernova survey with Hubble (CLASH) sample, which is a
+524-orbit multi-cycle treasury program. One of its main goals is to ``measure the profiles and substructures of dark matter 
+in galaxy clusters with unprecedented precision and resolution'' \citep{postman2012}. The CLASH sample has 25 massive galaxy 
+clusters, 20 of which are selected from X-ray data (from Chandra X-ray Observatory), and 5 based on exceptional lensing strength. 
+These clusters have the following properties: $0.187 < z < 0.890$, $5.5 < k T_e$ (keV)$ < 15.5$, and $6.7 < L_{bol} / 10^{44} $ 
+(erg s$^{-1}$) $<90.8$. Thus, these clusters are large enough that we should expect to observe them with MUSTANG with a reasonable 
+amount of time on the sky (on average, $<$25 hours per cluster).
+
+While these clusters are not a complete sample, many already have SZ effect observations from the Sunyaev-Zel'dovich 
+Array (SZA), AMiBA, or Bolocam, making them well studied, and deserving of high resolution SZ effect measurements. 
+The wealth of observations on these clusters will allow us to constrain pressure and 
+mass profiles of clusters as well as the impact of substructure. Additionally, we will be able to assess discrepancies
+between X-ray derived properties, shown in Table~\ref{tbl:cluster_properties} 
+and compare to SZ derived properties. 
+
+\begin{figure*}[!h]
+  \centering
+  \begin{tabular}{cccc}
+   \epsfig{file=figures/Abell1835_MBX.eps,width=0.25\linewidth,clip=}   &
+   \epsfig{file=figures/Abell611_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS1115_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS0429_MBX.eps,width=0.25\linewidth,clip=}    \\
+   \epsfig{file=figures/MACS1206_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS0329_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/RXJ1347_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS1311_MBX.eps,width=0.25\linewidth,clip=}    \\
+   \epsfig{file=figures/MACS1423_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS1149_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS0717_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/MACS0647_MBX.eps,width=0.25\linewidth,clip=}    \\
+   \epsfig{file=figures/MACS0744_MBX.eps,width=0.25\linewidth,clip=}    &
+   \epsfig{file=figures/CLJ1226_MBX.eps,width=0.25\linewidth,clip=}    &
+     &
+  \end{tabular}
+  \caption{MUSTANG maps of the remaining 5 clusters in our sample. Pale contours are MUSTANG contours;
+    black contours are Bolocam. Both start at $3\sigma$ decrement, with $1\sigma$ intervals. 
+    Red contours are X-ray surface brightness contours at arbitrary levels. The red asterisk is the 
+    ACCEPT centroid; the black asterisk is the Bolocam centroid.}
+  \label{fig:mustang_maps_sample}
+\end{figure*}
+
+\begin{deluxetable*}{lllllllllll}
+\tabletypesize{\scriptsize}
+\tablecolumns{10}
+\tablewidth{0pt} 
+\tablecaption{CLASH cluster properties \label{tbl:cluster_properties}}
+\tablehead{ 
+    \colhead{Cluster} & \colhead{$z$} & \colhead{$M_{500}$} & \colhead{$P_{500}$} & \colhead{$R_{500}$} & \colhead{$T_x^1$} 
+              & \colhead{$T_x^2$} & \colhead{$T_{mg}$} & \colhead{Dynamical} & \colhead{$\Delta r_0$} \\
+              \colhead{}  & \colhead{} & \colhead{($10^{14} M_{\odot}$)} & \colhead{(keV/cm$^{3}$)} & \colhead{(kpc)} & 
+              \colhead{(keV)} & \colhead{(keV)} & \colhead{(keV)} & \colhead{state} & \colhead{(\asec)}
+}
+\startdata
+    \textbf{Abell 1835}  & 0.253 & 12   & 0.00594   & 1490   & 9.0  & 10.0 & 8.17 & CC      & 6.8   \\
+    \textbf{Abell 611}   & 0.288 & 7.4  & 0.00445   & 1240   & 6.8  & --   & 6.55 & --      & 18.7  \\
+    \textbf{MACS1115}    & 0.355 & 8.6  & 0.00545   & 1280   & 9.2  & 9.14 & 6.47 & CC      & 34.8  \\
+    \textbf{MACS0429}    & 0.399 & 5.8  & 0.00448   & 1100   & 8.3  & 8.55 & 4.32 & CC      & 18.7  \\
+    \textbf{MACS1206}    & 0.439 & 19   & 0.01059   & 1610   & 10.7 & 11.4 & 8.81 & --     & 6.9   \\
+    \textbf{MACS0329}    & 0.450 & 7.9  & 0.00596   & 1190   & 6.3  & 5.85 & 5.05 & CC \& D & 14.8  \\
+    \textbf{RXJ1347}     & 0.451 & 22   & 0.01171   & 1670   & 10.8 & 13.6 & 7.99 & CC      & 9.6   \\
+    \textbf{MACS1311}    & 0.494 & 3.9  & 0.00399   & 930    & 6.0  & 6.36 & 4.70 & CC      & 27.7  \\
+    \textbf{MACS1423}    & 0.543 & 6.6  & 0.00612   & 1090   & 6.9  & 6.81 & 4.14 & CC      & 19.8  \\
+    \textbf{MACS1149}    & 0.544 & 19   & 0.01228   & 1530   & 8.5  & 8.76 & 7.29 & D       & 6.0   \\
+    \textbf{MACS0717}    & 0.546 & 25   & 0.01490   & 1690   & 11.8 & 10.6 & 7.70 & D       & 32.4  \\
+    \textbf{MACS0647}    & 0.591 & 11   & 0.00923   & 1260   & 11.5 & 12.6 & 9.97 & --      & 6.9   \\
+    \textbf{MACS0744}    & 0.698 & 13   & 0.01199   & 1260   & 8.1  & 8.90 & 7.34 & D       & 4.9   \\
+    \textbf{CLJ1226}     & 0.888 & 7.8  & 0.01184   & 1000   & 12.0 & 11.7 & 8.39 & --      & 15.3  \\
+    \hline
+    Abell 383            & 0.187 & 4.7  & 0.00285   & 1110   & 5.4  & 5.47 & --   & CC      & --    \\
+    Abell 209            & 0.206 & 13   & 0.00564   & 1530   & 8.2  & 8.69 & --   & --      & --    \\
+    Abell 1423           & 0.213 & 8.7  & 0.00445   & 1350   & 5.8  & 6.61 & --   & --      & --    \\
+    Abell 2261           & 0.224 & 14   & 0.00632   & 1590   & 6.1  & 8.09 & --   & CC      & --    \\
+    RXJ2129              & 0.234 & 7.7  & 0.00423   & 1280   & 6.3  & 7.78 & --   & CC      & --    \\
+    MS 2137              & 0.313 & 4.7  & 0.00342   & 1060   & 4.7  & --   & --   & CC      & --    \\
+    RXC J2248            & 0.348 & 22   & 0.01014   & 1760   & 10.9 & 11.5 & --   & --      & --    \\
+    MACS1931             & 0.352 & 9.9  & 0.00595   & 1340   & 7.5  & 7.92 & --   & CC      & --    \\
+    MACS1532             & 0.362 & 9.5  & 0.00589   & 1310   & 6.8  & 6.47 & --   & CC      & --    \\
+    MACS1720             & 0.387 & 6.3  & 0.00465   & 1140   & 7.9  & 6.50 & --   & CC      & --    \\
+    MACS0416             & 0.397 & 9.1  & 0.00625   & 1270   & 8.2  & 8.14 & --   & --      & --    \\
+    MACS2129             & 0.570 & 11   & 0.00903   & 1250   & 8.6  & 8.11 & --   & D       & --    
+\enddata
+\tablecomments{$z$, $M_{500}$, and $T_X^1$ are taken as tabulated in \citet{mantz2010}:  $T_X^1$ is calculated from a 
+  single spectrum over $0.15 R_{500} < r < R_{500}$ for each cluster. $T_X^2$ is from \citet{morandi2015},
+  and is calculated over $0.15 R_{500} < r < 0.75 R_{500}$.  $T_{mg}$ is a fitted gas mass weighted temperature,
+  determined by fitting the ACCEPT \citep{cavagnolo2009} temperature profiles to the profile found in
+  \citet{vikhlinin2006}. The bolded clusters are the 14 clusters in our sample.
+  $\Delta r_0$ denotes the offset between the ACCEPT and Bolocam centroids. }
+\end{deluxetable*}
+
+Of the 25 clusters in the CLASH sample, four are too far south to be observed with MUSTANG from Green Bank, WV.
+Of the remaining 21, we were only able to observe fourteen given the available good weather and their limited visibility.
+Abell 209 was observed, but was relatively noisy and showed no trace of any detection. Thus, our final sample
+includes thirteen CLASH clusters and Abell 1835, which are shown in bold in Table~\ref{tbl:cluster_properties}. These clusters
+were also observed with Bolocam, and have been analyzed in \citet{sayers2012, sayers2013,czakon2014}. The centroid differences
+between the \emph{Archive of Chandra Cluster Entropy Profile Tables} \citep[ACCEPT][]{cavagnolo2009}) 
+and Bolocam ($\Delta r_0$) are also listed as  in Table~\ref{tbl:cluster_properties}. The total integration times of
+MUSTANG and Bolocam observations of our sample is listed in Table~\ref{tbl:cluster_obs}. The clusters were observed over 
+several programs from 2008 until 2014.
+
+\begin{deluxetable*}{lllllllllll}
+\tabletypesize{\footnotesize}
+\tablecolumns{10}
+\tablewidth{0pt} 
+\tablecaption{Bolocam and MUSTANG observational properties. \label{tbl:cluster_obs}}
+\tablehead{ 
+    \colhead{Cluster} & \colhead{$z$} & \colhead{R.A.} & \colhead{Decl.} & 
+              \colhead{$T_{obs,B}$} & \colhead{Noise$_{B}$} & \colhead{A10$_{B}$} & 
+              \colhead{$T_{obs,M}$} & \colhead{Noise$_{M}$} & \colhead{A10$_{M}$}    \\
+            & \colhead{} & \colhead{(J2000)} & \colhead{(J2000)} &  
+              \colhead{(hours)} & \colhead{$\mu K_{CMB}$-amin} & \colhead{($\sigma$)} &
+              \colhead{(hours)} & \colhead{$\mu$Jy/bm}        & \colhead{($\sigma$)}
+}
+\startdata
+    \textbf{Abell 1835}  & 0.253 & 14:01:01.9 & +02:52:40 & 14.0 & 16.2 & 28.9 & 8.6  & 53.4 & 10.0  \\
+    \textbf{Abell 611}   & 0.288 & 08:00:56.8 & +36:03:26 & 18.7 & 25.0 & 13.9 & 12.0 & 46.2 & 1.73  \\
+    \textbf{MACS1115}    & 0.355 & 11:15:51.9 & +01:29:55 & 15.7 & 22.8 & 16.3 & 10.0 & 56.4 & 8.66  \\
+    \textbf{MACS0429}    & 0.399 & 04:29:36.0 & -02:53:06 & 17.0 & 24.1 & 13.2 & 11.6 & 47.2 & -0.02 \\
+    \textbf{MACS1206}    & 0.439 & 12:06:12.3 & -08:48:06 & 11.3 & 24.9 & 28.7 & 13.3 & 42.5 & 8.89  \\
+    \textbf{MACS0329}    & 0.450 & 03:29:41.5 & -02:11:46 & 10.3 & 22.5 & 17.4 & 13.1 & 39.9 & 8.63  \\
+    \textbf{RXJ1347}     & 0.451 & 13:47:30.8 & -11:45:09 & 15.5 & 19.7 & 45.3 & 1.9  & 276. & 8.90  \\
+    \textbf{MACS1311}    & 0.494 & 13:11:01.7 & -03:10:40 & 14.2 & 22.5 & 11.3 & 10.6 & 64.5 & 0.71  \\
+    \textbf{MACS1423}    & 0.543 & 14:23:47.9 & +24:04:43 & 21.7 & 22.3 & 11.8 & 11.2 & 35.7 & 6.15  \\
+    \textbf{MACS1149}    & 0.544 & 11:49:35.4 & +22:24:04 & 17.7 & 24.0 & 22.0 & 13.9 & 32.7 & -1.47 \\
+    \textbf{MACS0717}    & 0.546 & 07:17:32.1 & +37:45:21 & 12.5 & 29.4 & 31.3 & 14.6 & 27.1 & 3.05  \\
+    \textbf{MACS0647}    & 0.591 & 06:47:49.7 & +70:14:56 & 11.7 & 22.0 & 24.1 & 16.4 & 20.3 & 11.3  \\
+    \textbf{MACS0744}    & 0.698 & 07:44:52.3 & +39:27:27 & 16.3 & 20.6 & 17.8 & 7.6  & 48.5 & 7.67  \\
+    \textbf{CLJ1226}     & 0.888 & 12:26:57.9 & +33:32:49 & 11.8 & 22.9 & 13.7 & 4.9  & 85.6 & 9.43 
+\enddata
+\tablecomments{Subscripts $_{B}$ and $_{M}$ denote Bolocam and MUSTANG properties respectively. Noise$_{B}$
+  and $T_{obs,B}$ are those reported in \citet{sayers2013}. Noise$_{M}$ is calculated on MUSTANG maps with 
+  $10$\asecs smoothing, in the central arcminute. $T_{obs}$ are the integration times (on source) for the 
+  given instruments. $A_{10}$ values indicate the significance (in $\sigma$) of a spherical gNFW profile
+  (see Section~\ref{sec:bulk_ICM}) using parameters from \citet{arnaud2010}, 
+  with normalization, $P_0$, allowed to vary.}
+\end{deluxetable*}
+
+%The clusters were observed with
+%MUSTANG over the projects AGBT08A\_056, AGBT09A\_052, AGBT09C\_059, AGBT10A\_056, AGBT10C\_017, AGBT10C\_026, AGBT10C\_042, 
+%AGBT10C\_031, AGBT11A\_009, and AGBT11B\_001.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{MUSTANG Observations and Reduction}
+\label{sec:musobs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MUSTANG is a 64 pixel array of Transition Edge Sensor (TES) bolometers arranged in an $8 \times 8$ array
+located at the Gregorian focus on the 100 m GBT. Operating at 90 GHz (81--99~GHz),
+MUSTANG has an angular resolution of 9\asec and pixel spacing of 0.63$f \lambda$ resulting in a FOV
+of 42\asec. More detailed information about the instrument can be found in \citet{dicker2008}.
+
+Our observations and data reduction are described in detail in \citet{romero2015a}, and we briefly review them
+here. Absolute flux calibrations are based on the planets Mars, Uranus, or Saturn, nebulae, or the star Betelgeuse 
+($\alpha_{Ori}$). At least one of these flux calibrators was observed at least once per night, and we find our 
+calibration is accurate to a 10\% RMS uncertainty. We also observe bright point sources every half hour
+to track our pointing and beam shape. To observe the target galaxy clusters, we employ Lissajous daisy scans 
+with a $3\arcmin$ radius and in many of the clusters we broadened our coverage with a hexagonal pattern of 
+daisy centers (with $1\arcmin$ offsets). 
+For most clusters, the coverage (weight) drops to 50\% of its peak value at a radius of $1.3'$.
+
+Processing of MUSTANG data is performed using a custom IDL pipeline. Raw data is recorded as time ordered data (TOD)
+from each of the 64 detectors. An outline of the data processing for each scan on a galaxy cluster is given below.
+  
+  (1) We define a pixel mask from the nearest preceding CAL scan; unresponsive detectors are masked out.
+  The CAL scan provides us with unique gains to be applied to each of the responsive detectors.
+
+  (2) A common mode template, calculated as the arithmetic mean of the TOD across detectors, polynomial, and sinusoid
+  are fit to the data and subtracted.
+
+  (3) After the common mode and polynomial subtraction each scan is subjected to spike (glitch), skewness, and Allan 
+  variance tests and are flagged if they do not meet our criteria.
+
+  (4) Individual detector weights are calculated as $1/ \sigma_i^2$, where $\sigma_i$ is the RMS of the non-flagged
+  TOD for that detector. 
+
+  (5) Maps are produced by gridding the TOD in 1\asec pixels in Right Ascension (R.A.) and Declination (Dec). A weight 
+  map is produced in addition to the signal map.
+
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{figures/Transfer_Function_All_2_Dec_2015.eps}
+  \end{center}
+  \caption{Effective average transfer function of our data reduction over our sample. 
+    The variations between cluster is minimal. \textcolor{red}{[I
+        will quantify this...but it's quite small.]} For each cluster, attenuation is
+    calculated based on simulated observations of 25 fake skies. The plotted one-dimensional
+    transfer function is the weighted average of the transfer functions
+    of individual clusters. The transfer functions of individual clusters are calculated as
+    the ratio of the one dimensional power spectra of the power spectra of observed fake sky
+    and input fake sky. We have labelled the relevant angles for the FOV and FWHM.}
+  \label{fig:xfer_all}
+\end{figure}
+
+
+\subsection{Bolocam Observations and Reduction}
+\label{sec:bolocamredox}
+
+Bolocam is a 144-element camera that was a facility instrument on the Caltech Submillimeter Observatory (CSO) from
+2003 until 2012. Its field of view is 8\amins in diameter, and at 140 GHz it has a resolution of 58\asec FWHM
+(\citet{glenn1998,haig2004}). The clusters were observed with a Lissajous pattern that results in a tapered
+coverage dropping to 50\% of the peak value at a radius of roughly 5\amin, and to 0 at a radius of 10\amin.
+The Bolocam maps used in this analysis are $14\arcmin \times 14\arcmin$. The Bolocam data are the same as those 
+used in \citet{czakon2014} and \citet{sayers2013}; the details of the reduction are given therein, along with \citet{sayers2011}. 
+%Bolocam observed Abell 1835 for 14.0 hours resulting in a noise of 16.2 $\mu K_{CMB}$-arcminute, and observed 
+%MACS 0647 for 11.4 hours resulting in a noise of 22.0 $\mu K_{CMB}$-arcminute.
+%In addition to the data maps, for each cluster 1000 noise maps are also provided, which
+%included relevant sources of instrumental, atmospheric, and astronomical noise. 
+The reduction and calibration is similar to that used for MUSTANG, and Bolocam achieves a 
+5\% calibration accuracy and 5\asecs pointing accuracy.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Joint Map Fitting Technique}
+\label{sec:jointfitting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Overview}
+\label{sec:jf_overview}
+
+The joint map fitting technique used in this paper is described in detail in \citet{romero2015a}. We review
+it briefly here. The general approach follows that of a least squares fitting procedure, which assumes that
+we can make a model map as a linear combination of model components. 
+
+This linear combination can be written as:
+\begin{equation}
+  \vec{d}_m = \mathbf{A} \vec{a}_m,
+\end{equation}
+where $d_m$ is the total model, each column in $\mathbf{A}$ is a filtered model component, and $\vec{a}_m$ is 
+an array of amplitudes of the components. There are, in effect, four types of components for which we consider 
+fitting: a bulk component, point source(s), residual component(s),and a mean level. Of these, we produce a
+sky model for the bulk component and point source to be filtered. The residual component is calculated directly
+as a filtered component.
+
+We wish to fit $\vec{d}_m$ to our data, $\vec{d}$, and allow for a calibration offset between Bolocam and
+MUSTANG data. We therefore define our data vector as:
+\begin{equation}
+  \vec{d} = [ \vec{d}_{B}, k \vec{d}_{M}, k ] ,
+\end{equation}
+where $\vec{d}_{B}$ is the Bolocam data, $\vec{d}_{M}$ is the MUSTANG data, and $k$ is the calibration offset of
+MUSTANG relative to Bolocam, with an uncertainty of 11.2\%.
+
+We use the $\chi^2$ statistic as our goodness of fit:
+\begin{equation}
+  \chi^2 = (\overrightarrow{d} - \overrightarrow{d}_m)^T \mathbf{N}^{-1} (\overrightarrow{d} - \overrightarrow{d}_m),
+\end{equation}
+where $\mathbf{N}$ is the covariance matrix; however, because we wish to fit for $k$ in addition to the 
+amplitude of model components, we no longer have
+completely linearly independent variables, and thus we employ MPFIT \citep{markwardt2009} to solve for these
+variables.
+
+\subsection{Simulated Observations}
+\label{sec:jf_filtering}
+
+Simulated observations are performed by converting an input sky into input TOD and processing the simulated TOD
+as the true TOD are processed (Section~\ref{sec:musobs}). The time requirements for simulated observations are  
+reduced by storing the necessary telescope and detector information from the true TOD in an IDL structure. 
+Due to the time requirements to cover the
+necessary parameter space (Section~\ref{sec:param_space}), TOD were produced with a fraction of the scans (termed
+short TOD) on a given cluster, where care was taken to ensure the same coverage (relative weight distribution). 
+The filtering is observed to be the same between full TOD and short TOD (Figure~\ref{fig:long_vs_short_qv}). 
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figures/Long_vs_short_qv_bestfit_m0647_22_Jun_2015_v2.eps}
+  \caption{A fitted model to MACS 0647. The scatter in the short TOD is $\lesssim 3$\% 
+    of the peak Compton y. In absolute terms, this translates to roughly $2\times 10^{-5}$ in Compton y. 
+    Typical pixel noise in maps is $15 \times 10^{-5}$.}
+  \label{fig:long_vs_short_qv}
+\end{figure}
+
+\subsection{Components}
+\label{sec:components}
+
+\subsection{Bulk ICM}
+\label{sec:bulk_ICM}
+
+ As in \citet{romero2015a}, the bulk component is taken to be a 
+spherically symmetric 3D electron pressure profile as parameterized by a generalized Navarro, Frenk,
+and White profile \citep[hereafter, gNFW][]{navarro1997,nagai2007}:
+\begin{equation}
+  \Tilde{P} = \frac{P_0}{(C_{500} X)^{\gamma} [1 + (C_{500} X)^{\alpha}]^{(\beta - \gamma)/\alpha}}
+\end{equation}
+where $X = R / R_{500}$, and $C_{500}$ is the concentration parameter; one can also write ($C_{500} X$) as
+($R / R_s$), where $R_s = R_{500}/C_{500}$. $\Tilde{P}$ is the electron pressure in units of the characteristic
+pressure $P_{500}$. This pressure profile is integrated along the line of sight to produce 
+a Compton $y$ profile, given as 
+\begin{equation}
+  y(r) = \frac{P_{500} \sigma_{T}}{m_e c^2} \int_{-\infty}^{\infty} \Tilde{P}(r,l) dl
+\end{equation}
+where $R^2 = r^2 + l^2$, $r$ is the projected radius, and $l$ is the distance from the center of the cluster
+along the line of sight. Once integrated, $y(r)$ is gridded as $y(\theta)$ and  is realized as a map 
+(pixels of 1\asecs and 20\asecs on a side). From here, we produce two model maps: one for Bolocam and one for MUSTANG. 
+In each case, we convolve the Compton $y$ map by the appropriate beam shape. For Bolocam we use a Gaussian with FWHM
+$= 58$\asec, and for MUSTANG we use the double Gaussian as determined in \citet{romero2015a}.
+
+\subsubsection{Point Sources}
+\label{sec:ptsrcs}
+
+Point sources are treated in the same manner as in \citet{romero2015a}. All compact sources in our sample
+are well modelled as a point source. We clearly detect point sources in Abell 1835, MACS 1115, MACS 0429, 
+MACS 1206, RXJ1347, MACS 1423, and MACS 0717 in the MUSTANG maps. A point source is identified by NIKA 
+\citep{adam2015} in CLJ1226, which is posited to be a submillimeter galaxy (SMG) behind the cluster. 
+The point source in MACS 0717 is due to a foreground elliptical galaxy \citep{mroczkowski2012}.
+All of the remaining point sources (six) are coincident (within 3\asecs of reported coordinnates) with the BCGs 
+of their respective clusters \citep[][]{crawford1999,donahue2015}. Moreover, of these six BCGs, four of them
+exhibit unambiguous UV excess, with the remaining two (MACS 1206 and Abell 1835) not being included because
+of ambiguity for MACS 1206 with lensed background systems \citep{donahue2015}. Abell 1835 (not in the CLASH
+sample) was observed by \citet{odea2010} and found to have a FUV flux corresponding to a star formation rate
+of 11.7 $M_{\odot}$ per year, which fits within the SFR range (5 - 80 $M_{\odot}$ yr$^{-1}$) of the UV excess BCGs
+found in \citep{donahue2015}. 
+For the Bolocam image, the point sources in Abell 1835, MACS 0429, RXJ1347, and MACS 1423
+has been subtracted based on an extrapolation of a power law fit to the 1.4 GHz NVSS \citep{condon1998}
+and 30 GHz SZA \citep{mroczkowski2009} measurements \citep{sayers2012}. The flux densities for
+the point sources fitted are shown in Table~\ref{tbl:sample_ptsrc}.
+
+\begin{deluxetable}{c c c c c}
+\tabletypesize{\footnotesize}
+\tablecolumns{5}
+\tablewidth{0pt} 
+\tablecaption{Point source flux densities \label{tbl:sample_ptsrc}}
+\tablehead{ 
+    \colhead{Cluster} & \colhead{R.A. (J2000)} & \colhead{Dec (J2000)} & 
+    \colhead{$S_{90}$ (mJy)}  & \colhead{$S_{140}$ (mJy)}
+}
+\startdata
+Abell 1835  & 14:01:02.07  &  +2:52:47.52  & $1.37 \pm 0.08$ & $0.7 \pm 0.2$ \\
+MACS 1115   & 11:15:51.82  &  +1:29:56.82  & $1.04 \pm 0.11$ & --            \\  
+MACS 0429   & 04:29:35.97  &  -2:53:04.74  & $7.67 \pm 0.84$ & $6.0 \pm 1.8$ \\
+MACS 1206   & 12:06:12.11  &  -8:48:00.85  & $0.75 \pm 0.08$ & --            \\  
+RXJ1347     & 13:47:30.61  & -11:45:09.48  & $7.40 \pm 0.58$ & $4.0 \pm 1.2$ \\  
+MACS 1423   & 14:23:47.71  & +24:04:43.66  & $1.36 \pm 0.13$ & $0.7 \pm 0.2$ \\  
+MACS 0717   & 07:17:37.03  & +37:44:24.00  & $2.08 \pm 0.25$ & --            \\   
+CLJ1226     & 12:27:00.01  & +33:32:42.00  & $0.36 \pm 0.11$ & --   
+\enddata
+  \tablecomments{$S_{90}$ is the best fit flux density to MUSTANG, and $S_{140}$ is the assumed flux density in
+  the Bolocam maps (at 140 GHz). The location of the point source is reported from the fitted centroid to the
+  MUSTANG data. The conversion from mJy to the equivalent uK$_{CMB}$ is given as: 
+  $S_{140} (\text{mJy/bm}) \sim S_{140} / 30 (\mu\text{K}_{CMB})$.}
+\end{deluxetable}
+
+\subsubsection{Residual Components}
+
+Residual components are selected primarily as $4 \sigma$ decrements within the central arcminute of MUSTANG maps,
+which are not well fitted by a bulk model. We fit residual components for MACS 1206, RXJ 1347, and MACS 0744.
+Although we do not fit for residual components in Abell 611 and MACS 1115, we report properties of potential
+residual components for these two clusters. We do not fit the residual component for Abell 611 because the peak
+significance is not $4\sigma$ and the bulk cluster model appears to account for much of the decrement. For MACS 1115, 
+the residual component is outside the central arcminute and does not affect our fit.
+
+To create the residual component, we first select the feature of interest based on the MUSTANG signal-to-noise (SNR) map
+of the cluster \citep[see][]{romero2015a}. All pixels below $-3 \sigma$ pertaining to the feature are selected, and the 
+shape is determined by fitting a two dimensional Gaussian. This Gaussian is then fit to the unsmoothed MUSTANG data map 
+(in units of Compton y), where only its amplitude is allowed to vary.
+
+\begin{deluxetable*}{c | c c c c c c c}
+\tabletypesize{\footnotesize}
+\tablecolumns{5}
+\tablewidth{0pt} 
+\tablecaption{Parameters of Residual Components from MUSTANG \label{table:resid_comps}}
+\tablehead{
+Cluster & RA      & Dec     & Modeled Peak y    & FWHM$_A$ & FWHM$_B$ & $\theta$ & Fitted Peak y \\
+        & (J2000) & (J2000) & ($10^{-5}$) & (\asec) &  (\asec) & (deg.) & ($10^{-5}$)     
+}
+\startdata
+Abell 611 &  8:00:56.20 & 36:03:00.08 &  8.4  &  20.7 &  35.3 &   160 & --        \\ 
+MACS 1115 & 11:15:56.66 &  1:30:02.82 &  14   &  17.8 &  28.8 &   138 & --        \\ 
+MACS 1206 & 12:06:12.91 & -8:47:33.48 &  7.6  &  23.5 &  23.5 &  -115 & $3.6 \pm 0.7$   \\ 
+RXJ1347   & 13:47:31.06 &-11:45:18.38 &  42   &  12.2 &  30.1 &   -52 & $52  \pm 9$     \\ 
+MACS 0744 &  7:44:52.22 & 39:27:28.71 &  11   &  17.0 &  23.5 &     1 & $9.0 \pm 2.8$   \\ 
+\enddata
+\tablecomments{Residual components modeled with a two dimensional Gaussian with associated. $\theta$ is 
+  measured CCW (going east) from due north.}
+\end{deluxetable*}
+
+\subsubsection{Mean Level}
+\label{sec:mean_level}
+
+Similar to \citet{czakon2014}, we wish to account for a mean level (signal offset) in the MUSTANG maps.
+We do not wish to fit for a mean level simultaneously as a bulk component given the degeneracies. Therefore,
+to determine the mean level independent of the other components, we create a MUSTANG noise map
+% from time-flipped TOD 
+and calculate the mean within the inner arcminute for each cluster. This mean is then subtracted before 
+the other components are fit. 
+
+\subsection{Parameter Space}
+\label{sec:param_space}
+
+As in \citet{romero2015a}, we fix MUSTANG's centroid, but allow Bolocam's pointing to vary
+by $\pm 10$\asecs in RA and Dec with a prior on Bolocam's radial pointing accuracy of $1\sigma = 5$\asec.
+Our approach to find the absolute calibration offset between Bolocam and MUSTANG is also the same as in
+\citet{romero2015a}. 
+
+In \citet{romero2015a}, we performed a grid search over $\gamma$ and $C_{500}$, marginalizing over $P_0$,
+where $\alpha$ and $\beta$ are fixed to values determined from previous studies. We find that for differing
+$\alpha$ and $\beta$, the pressure profiles are in very good agreement with one another and that the 
+differences in $\chi^2$ values between these fits is not significant. Thus, for fits to other clusters, 
+we limit our $\alpha$ and $\beta$ in the gNFW parametrization to those values used in A10.
+
+We search over $0 < \gamma < 1.3$ in steps of $\delta \gamma = 0.1$, and over
+$0.1 < C_{500} < 3.3$ in steps of $\delta C_{500} = 0.1$. To create models in finer steps than $\delta \gamma$ 
+and $\delta C_{500}$, we interpolate filtered model maps from nearest neighbors from the grid of original 
+filtered models. 
+
+\subsubsection{Centroid}
+
+The default centroids used when gridding our bulk ICM component are the ACCEPT centroids. Given the offsets
+between ACCEPT and Bolocam centroids (Table~\ref{tbl:cluster_properties}), we perform a second set of
+fits where we grid the bulk ICM component using the Bolocam centroids.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SZ Pressure Profile Constraints}
+\label{sec:pp_constraints}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have constrained the gNFW parameters $P_0$, $C_{500}$, and $\gamma$ for fourteen individual clusters;
+these are presented in Table~\ref{tbl:pressure_profile_results}. 
+%We find that six of the fourteen clusters are best fit by $\gamma = 0$. 
+We find that six of our sample of fourteen have a best fit $\gamma = 0$, where we do not allow $\gamma <0$. 
+We find that our range of $C_{500}$ is sufficient, and that it is generally found to be $0.5 < C_{500} < 2.0$. 
+
+As it stands, finding slopes in the cores of galaxy clusters that are fit with $\gamma = 0$ is not unprecedented; 
+\citet{arnaud2010} find six of their 31 analyzed clusters in the REXCESS sample 
+have $\gamma=0$, where all gNFW parameters except $\beta$ were fitted for individual clusters. They found a 
+similar range in $C_{500}$, and $0.3 < \alpha < 2.5$. The sample in \citet{arnaud2010} is a local ($z < 0.2$), 
+flux limited sample, and for their analysis, they have excluded two clusters (a supercluster, Abell 901/902, 
+and a bimodal cluster, RXC J2157.4-0747) from the full REXCESS sample of 33 clusters. \citet{sayers2013} 
+determined pressure profile parameters over a sample of 45 clusters with the redshift range $0.15 < z < 0.89$, 
+where most (60\%) lie between $0.35 < z < 0.59$. They fit profiles to the stack of deprojected pressure 
+profiles, restricting $C_{500}$ to the A10 value, and fit for the other gNFW parameters. 
+
+Despite the relative discrepancies in pressure profiles of individual galaxy clusters as derived from MUSTANG and
+Bolocam to those derived by ACCEPT, the pressure profile found over all clusters 
+has very similar parameters to \citet{arnaud2010}. This can also be seen in Figure~\ref{fig:pp_sets},
+where the A10 pressure profile is consistently close to the profile from this work (R16). While all 14 clusters
+in this work are in \citet{sayers2013}, they find a consistently higher universal pressure profile.
+\citet{planck2013a} find higher pressure are large radii and lower pressure at small radii compared to our
+and A10 pressure profiles. 
+
+%\textcolor{red}{[I think I want to expand on this - perhaps postulating why we
+%find these trends.]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                SOME FIGURES                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[!h]
+  \centering
+  \begin{tabular}{cc}
+     \epsfig{file=figures/JF_Conf_Intervals_Disturbed_23_Jan_2016.eps,width=0.50\linewidth,clip=} &
+     \epsfig{file=figures/JF_Conf_Intervals_Cool_core_23_Jan_2016.eps,width=0.50\linewidth,clip=} \\
+     \epsfig{file=figures/JF_Conf_Intervals_Well_behaved_23_Jan_2016.eps,width=0.50\linewidth,clip=} &
+     \epsfig{file=figures/JF_Conf_Intervals_All_23_Jan_2016.eps,width=0.50\linewidth,clip=} 
+   \end{tabular}
+  \caption{Confidence intervals over all disturbed clusters, cool-core clusters, and the entire sample.
+           Cool core clusters include: Abell 1835, MACS 1115, MACS 0429, MACS 0329, RXJ 1347, 
+           MACS 1311 and MACS 1423. Disturbed clusters include: MACS 0329, MACS 1149, MACS 0717, and
+           MACS 0744. Well behaved clusters include: Abell 1835, MACS 1115, MACS 1206, RXJ 1347,
+           MACS 0647, MACS 0744, and CLJ 1226. Well behaved clusters are identified above.}
+  \label{fig:ensemble_cis}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+%  \includegraphics[width=0.5\textwidth]{figures/profile_sets_plot_v2.eps}
+  \includegraphics[width=0.5\textwidth]{figures/profile_sets_plot_v2_23_Jan_2016.eps}
+  \end{center}
+  \caption{Pressure Profiles from this (R16) and other works. A09 indicates ACCEPT \citep{cavagnolo2009} 
+    pressure profile for the 14 clusters in this sample. A09 falls below R16.}
+  \label{fig:pp_sets}
+\end{figure}
+
+% Now I want to compare to A10, P12, S13? OK...this is done.
+%%% What else to say?
+
+While our stacked pressure profiles are in excellent agreement with the previously derived pressure profiles
+in the region $0.1 R_{500} < r < R_{500}$, we see deviations at small and large radii. It is not too surprising
+that we agree with A10 at large radii, as we have fixed $\alpha$ and $\beta$ to the A10 values. Despite our
+fourteen clusters being included in the BOXSZ sample \citep{sayers2013}, we see that S13 shows higher pressure
+at all radii. We note that S13 presents a higher pressure at small radii than found in this work, where the
+addition of MUSTANG data contributes significantly to constraining the pressure at small radii (towards smaller
+pressures). At larger radii, our restriction of $\alpha$ and $\beta$ again explain our reduced pressure relative
+to S13.
+
+Figure~\ref{fig:ppr_ensembles} shows the ratios of the pressure profiles derived from this work to those from 
+other works, when clusters are characterized by dynamical type. We calculate these average ratios by weighting 
+the ratios of individual clusters, where the specific fitted gNFW pressure profile for
+each cluster is taken for ACCEPT, but for the other sets (A10, P12, and S13), we assume the gNFW profile 
+found for all clusters in their sample. In fitting profiles to ACCEPT, we impose the same restriction on 
+$\alpha$ and $\beta$ (fixing them to A10 values). In this manner, this imposition no longer biases our results
+at large radii, and we consitently see larger pressures at large radii in the SZ as compared to X-ray (ACCEPT) 
+data. \textcolor{red}{I also started thinking about \emph{XMM-Newton} vs. \emph{Chandra} data. However,
+\citet{donahue2014} would indicate that \emph{XMM-Newton} data tends to be lower in $n_e$ and $T_e$, which is
+\textbf{opposite} what we see in A09 vs. A10.}
+
+\begin{figure}
+  \begin{center}
+%  \includegraphics[width=0.5\textwidth]{figures/PPRs_ensembles_All_24_Oct_2015_v2.eps}
+%  \includegraphics[width=0.5\textwidth]{figures/PPRs_ensembles_All_11_Jan_2016.eps}
+  \begin{tabular}{cc}
+    \epsfig{file=figures/PPRs_ensembles_All_ACCEPT_scalerr_v2_24_Jan_2016.eps,width=0.50\linewidth,clip=}   &
+    \epsfig{file=figures/PPRs_ensembles_All_A10_scalerr_v2_24_Jan_2016.eps,width=0.50\linewidth,clip=}  \\
+    \epsfig{file=figures/PPRs_ensembles_All_P12_scalerr_v2_24_Jan_2016.eps,width=0.50\linewidth,clip=}   &
+    \epsfig{file=figures/PPRs_ensembles_All_S13_scalerr_v2_24_Jan_2016.eps,width=0.50\linewidth,clip=}  
+  \end{tabular}
+  \end{center}
+  \caption{Pressure ratios as compared to different sets. For ACCEPT, pressure ratios are calculated per
+  cluster and weighted by the error in the ratio (per radial bin). For the others, the ratio is again 
+  calculated per individual cluster, but the comparison pressure profile always assumes the gNFW profile
+  for the entire dataset, respectively (i.e. A10, P12, or S13). These ratios are weighted in the same manner.}
+  \label{fig:ppr_ensembles}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Potential Sources of Error}
+\label{sec:pp_error}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Shallow slopes in the cores of clusters could be suggestive of a centroid offset either between MUSTANG and Bolocam or
+between SZ and X-ray data. Given the MUSTANG and Bolocam pointing accuracies (2\asec and 5\asec, respectively),
+it is unlikely that the centroid offsets between MUSTANG and Bolocam are driving the fits to shallow slopes. 
+The difference between
+SZ (Bolocam) centroids and ACCEPT (Table~\ref{tbl:cluster_properties}) are large relative to pointing accuracies
+and thus potentially more important. However, when we adopt Bolocam's centroid 
+%(\textcolor{red}{[Is this worth another figure? I'm OK without another figure for this.]}) 
+we find negligible change to the SZ pressure profile as compared to adopting the ACCEPT centroid. 
+
+Individually, the Bolocam and MUSTANG data sets yield consistent fits with each other, where changes in best fit 
+parameters generally occur along the shallow gradient in confidence intervals (i.e. along the degeneracy
+between  $C_{500}$, and $\gamma$).
+
+Additionally, we consider the impact of the assumed fluxes of point sources in the Bolocam maps of Abell 1835, 
+MACS 0429, RXJ 1347, and MACS 1423. The conversion for $S_{140}$ values from mJy to the equivalent $\mu K_{CMB-amin}$ 
+is $\sim 30$, which puts the uncertainties of these point sources at 6, 52, 35, and 6 $\mu K_{CMB-amin}$ respectively. 
+From Table~\ref{tbl:cluster_obs}, we see that the noise in the Bolocam maps of these clusters are 16.2, 24.1, 19.7, 
+and 22.3 $\mu K_{CMB-amin}$ respectively. Thus, for MACS 0429 and RXJ 1347, we see that the potential impact of the
+point sources assumed by Bolocam could be non-trivial.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Potential Sources of Bias}
+\label{sec:pp_bias}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textcolor{red}{This subsection would depend on if we think my confidence intervals are in fact biased...}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                  Table of just the ensembles (and A10 to compare against)                           %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \include{old_table_1} % Not really intending to use this.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%    END OF THAT TABLE!    NOW LET'S PUT IN THE TABLE WE WANT INSTEAD                                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\include{table_pressure_profile_results} % reference: {tbl:pressure_profile_results}
+%%% Maybe \include does something I don't want it to?
+\begin{deluxetable*}{l|llllllllllll}
+\tabletypesize{\footnotesize}
+\tablecolumns{13}
+%\tablewidth{\columnwidth} 
+\tablewidth{0pt} 
+\tablecaption{Summary of Fitted Pressure Profiles \label{tbl:pressure_profile_results}}
+\tablehead{
+\colhead{Cluster} & \colhead{$R_{500}^a$} & \colhead{$Y_{cyl}(R_{500})$} & \colhead{$Y_{sph}(R_{500})$} & \colhead{$10^3 P_{500}^a$} & 
+        \colhead{$P_0$} & \colhead{$C_{500}$} & \colhead{$\alpha$} & \colhead{$\beta$} & \colhead{$\gamma$} & 
+                  \colhead{$k$} & \colhead{$\tilde{\chi}^2$} &  \colhead{d.o.f.}        \\ 
+      & \colhead{(Mpc)} & \colhead{($10^{-5}$ Mpc$^2$)} & \colhead{($10^{-5}$ Mpc$^2$)} & \colhead{keV cm$^{-3}$} & \colhead{}  & 
+      \colhead{} & \colhead{}  & \colhead{}  & \colhead{}  &   \colhead{}    
+}
+\startdata
+Abell 1835 & 1.49 & $26.75_{-6.15}^{+6.05}$ & $21.81_{-4.49}^{+4.12}$ &  5.94 & $2.15 \pm 0.07$ & $0.77_{-0.17}^{+0.23}$ & 
+1.05 & 5.49 & $0.78_{-0.13}^{+0.12}$ & 1.08 & 0.99 & 12880   \\ 
+Abell 611  & 1.24 & $9.67_{-2.57}^{+4.85}$ & $8.73_{-2.21}^{+3.68}$ &  4.45 & $35.43 \pm 2.46$ & $2.00_{-0.30}^{+0.40}$ & 
+1.05 & 5.49 & $0.00^{+0.15}$ & 0.96 & 1.02 & 12882   \\ 
+MACS 1115  & 1.28 & $30.28_{-6.30}^{+7.32}$ & $20.10_{-3.52}^{+3.84}$ &  5.45 & $0.67 \pm 0.04$ & $0.35_{-0.10}^{+0.15}$ & 
+1.05 & 5.49 & $0.87_{-0.27}^{+0.18}$ & 1.11 & 1.04 & 12875   \\ 
+MACS 0429  & 1.10 & $30.41_{-6.88}^{+7.72}$ & $19.57_{-3.74}^{+4.00}$ &  4.48 & $11.01 \pm 0.77$ & $0.59_{-0.09}^{+0.11}$ & 
+1.05 & 5.49 & $0.00^{+0.15}$ & 1.00 & 1.03 & 12875   \\ 
+MACS 1206  & 1.61 & $61.52_{-12.63}^{+12.49}$ & $48.16_{-8.27}^{+8.19}$ & 10.59 & $2.39 \pm 0.10$ & $0.74_{-0.14}^{+0.16}$ & 
+1.05 & 5.49 & $0.51_{-0.16}^{+0.14}$ & 1.09 & 1.01 & 12874   \\ 
+MACS 0329  & 1.19 & $13.38_{-2.99}^{+3.83}$ & $11.86_{-2.37}^{+2.93}$ &  5.93 & $9.30 \pm 0.50$ & $1.18_{-0.28}^{+0.72}$ & 
+1.05 & 5.49 & $0.41_{-0.41}^{+0.19}$ & 1.03 & 0.99 & 12876   \\ 
+RXJ1347    & 1.67 & $42.47_{-6.81}^{+8.29}$ & $37.80_{-5.11}^{+5.78}$ & 11.71 & $3.24 \pm 0.08$ & $1.18_{-0.48}^{+1.02}$ & 
+1.05 & 5.49 & $0.80_{-0.70}^{+0.30}$ & 1.15 & 0.99 & 12880   \\ 
+MACS 1311  & 0.93 & $17.18_{-3.49}^{+3.80}$ & $10.08_{-1.73}^{+1.79}$ &  3.99 & $2.75 \pm 0.22$ & $0.35_{-0.05}^{+0.15}$ & 
+1.05 & 5.49 & $0.41_{-0.41}^{+0.34}$ & 0.98 & 1.00 & 12881   \\ 
+MACS 1423  & 1.09 & $10.35_{-2.73}^{+4.00}$ & $8.89_{-2.07}^{+2.53}$ &  6.12 & $22.39 \pm 1.71$ & $1.58_{-0.48}^{+0.22}$ & 
+1.05 & 5.49 & $0.00^{+0.35}$ & 1.04 & 0.98 & 12876   \\ 
+MACS 1149  & 1.53 & $56.87_{-9.00}^{+8.04}$ & $41.62_{-5.67}^{+4.99}$ & 12.28 & $5.50 \pm 0.25$ & $0.83_{-0.03}^{+0.07}$ & 
+1.05 & 5.49 & $0.00^{+0.05}$ & 0.87 & 1.00 & 13584   \\ 
+MACS 0717  & 1.69 & $64.50_{-10.18}^{+12.42}$ & $55.72_{-8.00}^{+9.28}$ & 14.90 & $21.28 \pm 0.68$ & $1.97_{-0.37}^{+0.53}$ & 
+1.05 & 5.49 & $0.00^{+0.25}$ & 0.48 & 1.04 & 12876   \\ 
+MACS 0647  & 1.26 & $34.06_{-7.76}^{+10.21}$ & $26.33_{-4.72}^{+5.37}$ &  9.23 & $2.78 \pm 0.11$  & $0.70_{-0.20}^{+0.30}$ & 
+1.05 & 5.49 & $0.60_{-0.20}^{+0.15}$ & 1.14 & 1.01 & 12876   \\ 
+MACS 0744  & 1.26 & $15.10_{-3.01}^{+4.50}$ & $13.20_{-2.29}^{+3.18}$ & 11.99 & $13.15 \pm 0.81$ & $1.71_{-0.21}^{+0.29}$ & 
+1.05 & 5.49 & $0.00^{+0.15}$ & 0.90 & 1.02 & 12875   \\ 
+CLJ1226    & 1.00 & $10.50_{-1.94}^{+2.65}$ & $9.46_{-1.60}^{+2.03}$ & 11.84 & $19.29 \pm 1.25$ & $1.90_{-0.50}^{+0.60}$ & 
+1.05 & 5.49 & $0.29_{-0.29}^{+0.36}$ & 0.92 & 1.03 & 12875   \\ 
+\hline
+All          &  --    &  --    &  --    &  --    &  $7.94  \pm 0.10$ & $1.3_{-0.1}^{+0.1}$ & 1.05 & 5.49 & $0.3_{-0.1}^{+0.1}$ & -- & -- & -- \\ 
+Cool Core    &  --    &  --    &  --    &  --    &  $3.55  \pm 0.06$ & $0.9_{-0.1}^{+0.1}$ & 1.05 & 5.49 & $0.6_{-0.1}^{+0.1}$ & -- & -- & -- \\
+Disturbed    &  --    &  --    &  --    &  --    &  $12.56 \pm 0.29$ & $1.5_{-0.2}^{+0.1}$ & 1.05 & 5.49 & $0.0^{+0.1}$       & -- & -- & -- \\ 
+Well behaved &  --    &  --    &  --    &  --    &  $5.34 \pm 0.08$ & $1.2_{-0.1}^{+0.1}$ & 1.05 & 5.49 & $0.5_{-0.1}^{+0.1}$  & -- & -- & -- \\ 
+\hline
+All (A10)    &  --    &  --    &  --    &  --    &  $8.403 h_{70}^{-3/2}$ & 1.18 & 1.05 & 5.49 & 0.31 & -- & -- & -- \\
+Cool core (A10) &  --    &  --    &  --    &  --    &  $3.249 h_{70}^{-3/2}$ & 1.13 & 1.22 & 5.49 & 0.78 & -- & -- & -- \\
+Disturbed (A10) &  --    &  --    &  --    &  --    &  $3.202 h_{70}^{-3/2}$ & 1.08 & 1.41 & 5.49 & 0.38 & -- & -- & --
+\enddata
+\tablecomments{Results from our pressure profile analysis. $Y_{sph}$ is calculated using the tabulated value of $R_{500}$.
+    $^a$Values of $R_{500}$ and $P_{500}$ are taken from \citet{sayers2013}. We have assumed A10 values of $\alpha$ and $\beta$.
+    The findings from A10 are reproduced in the last three rows. The $h_{70}$ dependence is included for explicit replication
+    of A10 results; all $P_0$ values have this dependence (the assumed cosmologies are the same).}
+\end{deluxetable*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                             END OF THAT TABLE!                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                NEXT SECTION                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Integrated Compton Y Scaling Relations}
+
+%\textcolor{red}{[I'm not sure where to put this, or if it's worth including as it is right now. I know the
+%calculation of $Y_{cyl}$ is desirable - I will do that soon.]}
+
+We have calculated $Y_{sph}$ using the tabulated value of $R_{500}$, where $Y_{sph}$ is given by:
+\begin{equation}
+  Y_{sph}(r) = \frac{\sigma_T}{m_e c^2} \int_0^r P_e(r') 4 \pi r'^2 dr' .
+  \label{eqn:ysph}
+\end{equation}
+The error bars on $Y_{Sph}(R_{500})$ are found by calculating $Y_{Sph}(R_{500})$ to the fits over the 1000 noise realizations, and
+taking the values encompassing the middle 68\%.
+The $Y_{Sph} - M_{500}$ scaling relation calculated in \citet{arnaud2010} is given as:
+\begin{equation}
+%  h(z)^{-2/3} Y_{sph}(x R_{500}) = A_x \left{[}\frac{M_{500}}{3 \times 10^{14} h_{70}^{-1} M_{\odot}} \right{]}^{\alpha} ,
+  h(z)^{-2/3} Y_{sph}(x R_{500}) = A_x \left[ \frac{M_{500}}{3 \times 10^{14} h_{70}^{-1} M_{\odot}} \right] ^{\alpha} ,
+  \label{eqn:ysph_scaling}
+\end{equation}
+where $\alpha = 1.78$, $A_X = 2.925 \times 10^{-5} I(x) h_{70}^{-1}\text{Mpc}^2$, and $I(1) = 0.6145$.
+We compare our values of $Y_{Sph}(R_{500})$ to that of A10 in Figure~\ref{fig:ysph_scaling}
+and find six clusters which deviate by more than $2 \sigma$, in $Y_{Sph}$, from the scaling relation: 
+MACS 1311, MACS 0429, RXJ 1347, MACS 1149, MACS 0717, and MACS 0744.
+
+We obtain $M_{500}$ from \citet{mantz2010}, who calculate it as follows: (1) calculating $M_{gas,2500}$, the total gas mass enclosed in
+$R_{2500}$ from deprojected gas mass (non-parametric) profiles, (2) calculating $R_{500}$ by a ratio of $R_{500} / R{2500} \sim 2.3$
+assuming an NFW profile with concentration parameter $c=4$, and (3) calculating to $M_{500}$ as 
+$\frac{4 \pi 500 \rho_{cr}(z) r_{500}^3}{3(1+B)}$, where $B = 0.03 \pm 0.06$ is a systematic fractional bias. 
+\citet{mantz2010} note that the dominant source of systematic uncertainty associated with $M_{500}$ comes from the uncertainty 
+in the assumed $f_{gas}(r_{2500}) = 0.1104$. 
+
+\textcolor{red}{The bias of the (two) cool core clusters above the scaling relation is fundamentally caused by the shallower
+slope at large radii for these two clusters. The only way to achieve a shallow slope at larger radii with $\alpha$ and $\beta$ 
+fixed is then to drive $C_{500}$ to low values (and keep $\gamma$ relatively low too). We, in fact, see this. MACS 1311 and MACS
+0429, the two ``offending'' clusters, have two of the three lowest $C_{500}$ values, where MACS 1115 has the lowest, but is also
+fit with a relatively high $\gamma$ value. The question then becomes, what is driving the pressure high at larger radii? And
+subsequently, is it just coincidence that these two clusters are cool core clusters? Or colloquially, \emph{what's up with that?}.
+Finally, with only four disturbed clusters, one of which is also a cool core cluster, it's tempting to see the reverse trend -
+that disturbed clusters are falling below the relation, and cool core clusters are falling above the scaling relation. I'm less
+inclined to make a point of this, but perhaps it's worth mentioning.}
+
+\textcolor{red}{I would suspect the source of pressure at large radii is largely assymetries seen at these larger radii. That is,
+looking at the maps with X-ray and Bolocam contours, we see extended pressure, which is not strictly circular about the [either]
+centroid. Again, on centroids, as discussed in Section~\ref{sec:pp_error}, there is generally not a significant difference in 
+fitted parameters, and specifically for these two clusters, there is visually \textbf{no} difference when comparing fits using 
+the ACCEPT centroid to the fits using the Bolocam centroid. Thus, I have to return to the notion that there \textbf{is} some
+pressure that SZ observations are finding at large radii that the X-ray observations are not. This higher pressure is not seen
+globally (it's not symmetrically present), but arises assymetrically and could be due to locally elevated temperatures at large
+radii, to which X-rays are not sensitive.}
+
+\textcolor{red}{I wonder if this tendency is not seen in X-ray data as much simply because exposure times for cool core clusters
+may be restricted. That is, perhaps the cost to measure the pressure at these radii is too much for what proposers have expected
+to find, especially when they can constrain the pressure profile in the core very well in a much shorter time, relative to what
+would be required for these larger radii.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                SOME FIGURES                                         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[!ht]
+  \begin{center}
+%  \includegraphics[width=1.0\textwidth]{analysis_figures/ysph_scaling_relation_2sigma}
+%  \includegraphics[width=0.5\textwidth]{figures/ysph-M_all_color_coded_unlabeled_connected.eps}
+  \includegraphics[width=0.5\textwidth]{figures/ysph-M_all_color_coded_unlabeled_accept_14_Jan_2016_connected.eps}
+  \end{center}
+  \caption{$Y_{Sph,SZ}(R_{500})$ as calculated in this work (Table~\ref{tbl:pressure_profile_results}),
+  and $M_{500}$ as calculated from \citet{mantz2010}. The scaling relation (dashed line) and triangles
+  are from \citet{arnaud2010} and \citet{pratt2010}. The diamonds are $Y_{Sph,X}(R_{500})$ as calculated from the gNFW fits
+  to the ACCEPT pressure profiles. MACS 1311 and MACS 0429 are the notable outliers above the scaling relation.}
+% The labelled clusters are those whose $Y_{Sph}(R_{500})$ values lie
+%  more than $2\sigma$ from the scaling relation from \citet{arnaud2010}, the dot-dashed line.
+  \label{fig:ysph_scaling}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CLuster Properties by Combining SZ and X-ray Data}
+\label{sec:xray_comp}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The primary observables of SZ and X-ray observations of galaxy clusters differ in their 
+dependence upon the physical properties in the intracluster medium (ICM). This difference
+has, in the past, been exploited to make calculations of the Hubble parameter, $H_0$, 
+assuming spherical geometry of galaxy clusters. However, one can relax the spherical assumption
+and use the differences in SZ and X-ray inferred quantities to calculate cluster elongation
+along the line of sight, helium sedimentation, or (recalculate) the ICM electron temperature.
+These are all degenerate (i.e. these can not all be independently constrained). We investigate
+each constraint individually, and conclude that differences in the SZ and X-ray spherically derived
+pressure profiles are due to some combination cluster elongation and ICM temperature distribution.
+
+%%% Add some general discussion of SZ vs. ACCEPT?
+
+\subsection{Ellipsoidal Geometry}
+\label{sec:ellgeo}
+
+The geometry of a cluster, along the line of sight, may be calculated by comparing SZ and
+X-ray pressure profiles. We take $n_e$ as the true distribution, and let 
+it be a function of ellipsoidal radius, $E^2 = \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2}$, 
+where we will define $z$ to be along the line of sight, $s = \frac{z}{c}$ to be the ``scaled'' line of sight,
+and $\rho = \sqrt{\frac{x^2}{a^2} + \frac{y^2}{b^2}}$ to be the scaled in-the-plane of the sky radius.
+We wish to compare $c$ to $a$ and $b$, where we assume $a=b=1$. Given that our observables
+are integrals along the line of sight, we can write $O(\rho) = \int Q(\rho, z) dz$, where
+ $O(\rho)$ is our observable as a function of position on the sky, and $Q(\rho, z)$ is our
+integrable quantity (source function) with ellipsoidal symmetry. We can rewrite this as 
+$O(\rho) = \int c \times Q(\rho, s) ds = \int 1 \times Q\prime(\rho, s) ds$, where $Q\prime(\rho, s)$
+is our spherical source function assumed in our derivation of pressure profiles (i.e. 
+$Q\prime(\rho, s) = Q\prime(r)$).
+
+The observable, $O(\rho)$ is fixed, and thus $Q(r) \propto \frac{Q(E)}{c}$. Of interest to us are 
+$n_e(E), n_{e,X}(r), \text{and} n_{e,SZ}(r)$, the elliptical electron distribution, the X-ray derived spherical
+electron distribution, and the SZ derived spherical electron distribution. 
+These are related as follows: $n_{e,X}^2(r) = \frac{n_e^2(E)}{c}$, and $n_{e,SZ}(r) = \frac{n_e(E)}{c}$.
+Thus, the ratio of derived (spherical) radial electron densities has the following proportionality:
+$\frac{n_{e,SZ}(r)}{n_{e,X}(r)} = c^{1/2}$. To be explicit, we wish to compare axis ratios, and as such
+we define $\eta = \frac{a}{c} = \frac{b}{c}$. Noting that $\eta$ should be independent of $r$,
+we see that it can be ascertained through the normalization of the electron density profiles,
+or similarly, the electron pressure profiles: $\frac{P_{e,SZ}}{P_{e,X}} = \eta^{-1/2}$. 
+We can sum this up as saying that a prolate cluster (along
+the line of sight, $\eta < 1$) will yield greater pressure as derived from SZ than from X-ray,
+whereas an oblate cluster (along the line of sight) will do the opposite.
+
+To estimate the ellipticity of clusters, we fit the ACCEPT pressure profiles with
+a gNFW pressure profile, with $\alpha$ and $\beta$ fixed at their A10 values: 1.05 and 5.49,
+respectively. 
+%These are tabulated in Table~\ref{tbl:accept_gnfw}. 
+The resultant gNFW profile
+is then integrated along the line of sight (LOS) to create a Compton $y$ map, and then filtered as 
+discussed in \citet{romero2015a}. The amplitude of the ACCEPT model fitted to Bolocam data,
+$P_{Bolo}$, is used to account for the geometry of the cluster.
+The POS-to-LOS ratio given as $\eta = P_{Bolo}^{-2}$, and its associated uncertainty
+is calculated as $\sigma_{\eta}^2 = 2 P_{Bolo}^{-2} ((\sigma_{P_{Bolo}}/P_{Bolo})^2 + 
+(\sigma_{Bolo}/P_{Bolo})^2 + (\sigma_{ACCEPT}/P_{Bolo})^2)$, where $(\sigma_{Bolo}/P_{Bolo}) = 0.05$ 
+and $(\sigma_{ACCEPT}/P_{Bolo}) = 0.10$ are the calibration uncertainties of Bolocam and ACCEPT 
+respectively. Table~\ref{tbl:accept_gnfw} presents relevant fitted gNFW parameters used in calculating
+the cluster geometry; some of the $\eta$ values we find to be implausible, but are tabulated nonetheless.
+
+\begin{deluxetable*}{l | l l l | l l l | l l | l }
+\tabletypesize{\footnotesize}
+\tablecolumns{10}
+\tablewidth{0pt} 
+\tablecaption{ACCEPT gNFW Fitted Parameters and Comparison to SZ data \label{tbl:accept_gnfw}}
+\tablehead{
+    Cluster & $P_0$ & $C_{500}$ & $\gamma$ & $P_{SZ}$ & k & $P_{Bolo}$ & $\eta$ & $\sigma_{\eta}$ & $\Delta k$ ($\sigma$)
+}
+%\begin{table}
+%  \centering
+%  \begin{tabular}{l l l l l | l l l | l l | l }
+%    Cluster & $P_0$ & $C_{500}$ & $\gamma$ & $P_{SZ}$ & k & $P_{Bolo}$ & $\eta$ & $\sigma_{\eta}$ & $\Delta k$ ($\sigma$) \\
+%    \hline   
+\startdata
+    Abell 1835  & 12.8   & 1.3   & 0.43  & 0.77 & 1.21 & 0.75 & 1.77 & 0.41  & 1.08  \\
+    Abell 611   & 3.24   & 1.2   & 0.42  & 3.08 & 0.94 & 3.15 & 0.10 & 0.03  & 0.17  \\
+    MACS1115    & 18.0   & 1.7   & 0.32  & 0.93 & 1.17 & 0.89 & 1.28 & 0.32  & -0.50 \\
+    MACS0429    & 3.76   & 1.2   & 0.73  & 1.79 & 0.57 & 2.06 & 0.24 & 0.06  & 3.58  \\
+    MACS1206    & 2.82   & 1.0   & 0.56  & 1.36 & 0.97 & 1.36 & 0.54 & 0.13  & 1.00  \\
+    MACS0329    & 3.49   & 1.1   & 0.66  & 1.90 & 0.89 & 1.94 & 0.26 & 0.07  & 1.17  \\
+    RXJ1347     & 85.3   & 3.8   & 0.028 & 1.13 & 1.18 & 1.12 & 0.79 & 0.18  & -0.25 \\
+    MACS1311    & 35.7   & 2.1   & 0.084 & 1.64 & 0.81 & 1.85 & 0.29 & 0.08  & 1.42  \\
+    MACS1423    & 14.5   & 1.9   & 0.45  & 1.26 & 0.82 & 1.38 & 0.52 & 0.15  & 1.83  \\
+    MACS1149    & 6.21   & 1.1   & 0.00  & 1.41 & 0.82 & 1.45 & 0.48 & 0.12  & 0.42  \\
+    MACS0717    & 12.7   & 1.9   & 0.00  & 1.80 & 0.51 & 1.84 & 0.30 & 0.07  & 0.25  \\
+    MACS0647    & 24.8   & 1.7   & 0.00  & 1.24 & 1.09 & 1.22 & 0.67 & 0.16  & -0.42 \\
+    MACS0744    & 1.53   & 0.8   & 0.71  & 1.14 & 0.97 & 1.15 & 0.76 & 0.19  &  0.58 \\
+    CLJ1226     & 21.5   & 1.8   & 0.12  & 1.21 & 1.00 & 1.22 & 0.68 & 0.18  & -0.67 
+\enddata
+\tablecomments{Tabulated gNFW fits to the ACCEPT pressure profiles. $P_{SZ}$ denotes the fitted
+  amplitude (renormalization) of the ACCEPT model to the SZ data. $P_{Bolo}$ denotes the
+  fitted amplitude of the ACCEPT model to just Bolocam data. the gNFW parameters $\alpha$ and
+  $\beta$ are fixed at A10 values of 1.05 and 5.49. The column $\Delta k$ ($\sigma$) lists the 
+  significances of a more spherical core, as compared to the outer regions. $\Delta k$ was calculated
+  as the difference between the $k$ in this table (column 5), and the values listed in
+  Table~\ref{tbl:pressure_profile_results}. Negative $\Delta k$ 
+  significances indicate the core is measured to be more ellipsoidal than the outer regions.}
+\end{deluxetable*}
+
+
+The CLASH sample contains X-ray (20) and lensing (5) selected clusters and was not explicitly designed to
+be orientation unbiased. It is, therefore, not too surprising that we find indications that many of the clusters 
+in our sample are elongated along the line of sight ($\eta < 1$).
+Abell 1835 is not in the CLASH sample, but is a notably well studied cool core cluster, i.e. its the subject 
+of many studies on the basis of its cool core.
+
+This investigation has made the assumption that the geometry of a given cluster is globally consistent.
+That is, one ellipsoidal geometry applies to all regions of the cluster. However, this need not be the
+case \citep{kravtsov2012}. The cluster should appear more spherical towards the center, where baryons have
+condensed \citep[e.g.][and references therein]{kravtsov2012}. Also, the DM and baryonic distributions
+need not align (one need only look at the Bullet cluster \citep{Markevitch2004} for a dramatic example).
+This is not a particular concern to this analysis as we are comparing quantities based on the baryonic
+distribution, but would be more of a concern when including lensing. 
+
+One way to infer a difference in geometries between the inner and outer regions is to note the calibration
+offset between Bolocam and MUSTANG in our fits from Table~\ref{tbl:accept_gnfw}. In almost all cases, we
+find that $k$ tends to be inversely related to $P_{SZ}$, which may suggest that the central pressure distribution
+is more spherical than the outer pressure distribution. A quick estimate of this significance of this signature
+is found by comparing to the calibration offset values found in Table~\ref{tbl:pressure_profile_results}, and
+finding those clusters that show a preference in $\Delta k$ towards a more spherical center. Recalling that $k$ 
+has a prior on it of $12$\%, we can calculate significances shown in Table~\ref{tbl:accept_gnfw}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Temperature profiles}
+\label{sec:temp_profiles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+If we assume a given geometry (known ellipticity), then instead of solving for the ellipticity, we can
+derive a temperature profile, making use of the direct pressure constraints from SZ observations and the
+electron density constraints from X-ray observations. That is, we calculate
+\begin{equation}
+  T_{e} = \frac{P_{SZ}}{n_{e,X}},
+  \label{eqn:telec}
+\end{equation}
+where $P_{SZ}$ is the pressure derived from pressure profile fits to the SZ data (Section~\ref) and
+$n_{e,X}$ is the deprojected electron density derived from X-ray data by the ACCEPT collaboration.
+For each bin, we assign radial values as the arithmetic mean of its radial bounds.
+%(i.e. $r = (r_i + r_{i+1})/2$), where $r_i$ are the bounds between bins.
+Binned values of $P_{SZ}$ are then calculated from the fitted gNFW profile for each radial value 
+for the corresponding bins used for $n_{e,X}$.
+
+%may lead to more accurate than that found solely by X-rays, depending on
+%the quality of both data sets. 
+%X-rays do not constrain electron temperature as well as electron density because
+%of the scaling in emission, and foremost because of the photon count requirement for X-ray spectra used to derive 
+%a temperature from X-rays, which effectively provides lower resolution temperature data, especially at larger radii.
+%Thus, combining the SZ derived pressure and X-ray derived electron density makes use of the strength of each data
+%set.
+
+We find two models (beyond the isothermal model) to describe temperature profiles in the literature: those in
+\citet{vikhlinin2006}, denoted as (V06) and \citet{bulbul2010}, denoted as (B10). These are given as:
+\begin{equation}
+  T_{e,V06} = \frac{[(r / r_{cool})^{a_{cool}} + T_{min}/T_0]}{(r / r_{cool})^{a_{cool}} + 1} \times
+             \frac{T_0}{(r/r_t)^a [1 + (r/r_t)^b]^{c/b}}
+  \label{eqn:tvik06}
+\end{equation}
+where $r_{cool}$ is a fitted parameter, indicated the radial scale of the cool core, $r_t$ is a transitional radius,
+which has been called a scaling radius in other profiles (e.g. NFW). $T_{min}$ is the minimum temperature observed
+within the cool core. The remaining parameters, $a_{cool}$, $a$, $b$, $c$, and $T_0$ are all fit for. The first term
+in this equation is denoted as the cool core taper:
+\begin{equation}
+  t_{cool} = \frac{[(r / r_{cool})^{a_{cool}} + T_{min}/T_0]}{(r / r_{cool})^{a_{cool}} + 1}
+  \label{eqn:cc_taper}
+\end{equation}
+Thus, the V06 model should be seen as a gNFW temperature profile with a cool core taper, where Greek letters are used
+for the gNFW profiles used in our pressure profile analysis (Section~\ref{sec:components}). The letter equivalents
+are $a = \gamma$, $b = \alpha$, and $c = \beta - \gamma$. Thus, given that we have fixed $\alpha$ and $\beta$ from A10
+values, we fix $b$ and $c$ in fitting for the V06 temperature model, where we calculate $c$ based on the best fit 
+$\gamma$ value from our joint fits (Section~\ref{sec:components}). 
+Thus, we fit for $T_0$, $r_{cool}$, and $a_{cool}$, and $a$.
+
+The other temperature model \citep{bulbul2010} is given as:
+\begin{equation}
+  T_{e,B10} = T_0 \left[ \frac{1}{(\beta - 2)} \frac{(1+ r/r_s)^{\beta-2} - 1}{r/r_s (1 + r/r_s)^{\beta-2}}\right] t_{cool}
+  \label{eqn:tbul10}
+\end{equation}
+where $T_0$ and parameters in $t_{cool}$ are the only parameters specific to the temperature profile (independent of
+pressure or density profile). $\beta$ is a power law term in a generalized NFW profile proposed in \citet{bulbul2010}:
+\begin{equation}
+  \rho_{tot}(r) = \frac{\rho_i}{(r/r_s)(1+r/r_s)^{\beta}}
+  \label{eqn:bulgnfw}
+\end{equation}
+This formulation of density allows for an analytical formulation of $P(r)$ under the assumption of hydrostatic 
+equilibrium. With the assumption of a polytropic equation of state ($P = k \rho_g^{n+1}$, where $k$ is simply a
+constant, and $n$ is the polytropic index), the temperature profile (Equation~\ref{eqn:tbul10}) can be derived.
+It is worth noting that Equation~\ref{eqn:tbul10} does not diverge at $\beta = 2$ and can be calculated from
+L'Hopital's rule. As with $r_t$ in the V06 model, we fix $r_s = R_{500}/C_{500}$ based on the fitted value of $C_{500}$.
+
+We use MPFIT \citep{markwardt2009} to solve for the free parameters in the two temperature profiles. For
+V06 model, we fit for  $r_{cool}$, $a_{cool}$, $T_0$, and $a$, while for the B10 model we fit for $r_{cool}$, $a_{cool}$, 
+$T_0$, and $\beta$.
+
+The results of our SZ and X-ray derived temperature profiles are shown in Figure~\ref{fig:tprofs_all}. 
+We noted that the V06 model typically performs worse than B10 in our fits. This can be
+attributed to fixing $b$ and $c$ (especially $c$) as these are fixed at power laws that incorporate the
+behavior of $n_e$ with radius.
+
+%\afterpage{
+%\clearpage
+\thispagestyle{empty}
+\begin{figure}
+  \centering
+  \begin{tabular}{ccc}
+   \epsfig{file=figures/temperature_profiles_and_models_a1835_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_a611_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m1115_18_Oct_2015.eps,width=0.33\linewidth,clip=}   \\
+   \epsfig{file=figures/temperature_profiles_and_models_m0429_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m1206_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m0329_18_Oct_2015.eps,width=0.33\linewidth,clip=}   \\
+   \epsfig{file=figures/temperature_profiles_and_models_rxj1347_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m1311_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m1423_18_Oct_2015.eps,width=0.33\linewidth,clip=}   \\
+%  \end{tabular}
+%  \caption{Temperature Profiles. The green triangles are derived as $T_e = P_{e,SZ} / n_{e,X}$, and the shaded green
+%    indicates $1\sigma$ uncertainties.The blue plus signs are from ACCEPT. The solid lines are our fitted
+%    Vikhlinin temperature models and the dashed lines are our fitted Bulbul temperature models.}
+%  \label{fig:tprofs_1}
+%\end{figure}
+%\begin{figure}
+%  \centering
+%  \begin{tabular}{ccc}
+   \epsfig{file=figures/temperature_profiles_and_models_m1149_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m0717_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_m0647_18_Oct_2015.eps,width=0.33\linewidth,clip=}   \\
+   \epsfig{file=figures/temperature_profiles_and_models_m0744_18_Oct_2015.eps,width=0.33\linewidth,clip=}   &
+   \epsfig{file=figures/temperature_profiles_and_models_clj1226_18_Oct_2015.eps,width=0.33\linewidth,clip=}  &
+  \end{tabular}
+  \caption{Temperature Profiles. The green triangles are derived as $T_e = P_{e,SZ} / n_{e,X}$, and the shaded green
+    indicates $1\sigma$ uncertainties.The blue plus signs are X-ray spectroscopically derived temperatures from ACCEPT. 
+    The solid lines are our fitted
+    Vikhlinin temperature models and the dashed lines are our fitted Bulbul temperature models.}
+  \label{fig:tprofs_all}
+\end{figure}
+
+%}
+\begin{deluxetable}{l | l l l}
+\tabletypesize{\footnotesize}
+\tablecolumns{4}
+\tablewidth{0pt} 
+\tablecaption{Summary of Fitted Temperature Profiles \label{tbl:temperature_profile_results}}
+\tablehead{
+Cluster & $\chi_{V06}^2$ & $\chi_{B10}^2$ & DOF 
+}
+\startdata
+    Abell 1835  & 12.2  & 6.45  & 25  \\
+    Abell 611   & 11.2  & 3.52  & 25  \\
+    MACS1115    & 23.1  & 12.1  & 28  \\
+    MACS0429    & 4.96  & 4.10  & 12  \\
+    MACS1206    & 21.6  & 2.62  & 30  \\
+    MACS0329    & 13.7  & 10.2  & 28  \\
+    RXJ1347     & 19.2  & 10.4  & 28  \\
+    MACS1311    & 8.98  & 7.01  & 17  \\
+    MACS1423    & 3.75  & 6.76  & 17  \\
+    MACS1149    & 29.0  & 7.67  & 34  \\
+    MACS0717    & 55.8  & 58.9  & 32  \\
+    MACS0647    & 9.25  & 3.73  & 18  \\
+    MACS0744    & 14.5  & 10.7  & 21  \\
+    CLJ1226     & 21.8  & 18.9  & 15
+\enddata
+\tablecomments{The reported $\chi^2$ values show that the temperature error bars are generally quite large.}
+\end{deluxetable}
+
+Given the degeneracy between the geometry of the cluster and temperature, as calculated here, it is most probable
+that the difference between SZ and X-ray pressure profiles is due to a combination of the ICM temperatures and
+cluster geometries, including deviations from ellipsoidal symmetry of electron density and temperature. 
+We find it implausible
+that the temperature is in some cases twice that found by ACCEPT, especially those inferred values of 
+$k_B T_e \gtrsim 15$ keV. However, even accounting for geometry as calculated in Section~\ref{sec:ellgeo},
+we find that there are some clusters that still appear discrepant with ACCEPT, particularly those whose pressure
+falls below ACCEPT's pressure towards the center, but above ACCEPT at larger radii.  Some cases, especially
+%(Figure~\ref{fig:CI_all}) %% This figure is found in pressure_profiles.tex (in thesis).
+MACS 0717 and MACS 1149 are likely due to their known merging status. Others, like MACS 1115, a cool core cluster
+with no documented merger activity, with higher pressure at large radii in the SZ relative to X-rays could likely 
+be explained by the geometry in the plane of the sky. MACS 1115
+shows a northern elongation in the Bolocam map that is not present in the X-ray surface brightness maps
+(Figure~\ref{fig:mustang_maps_sample}), 
+and MACS 0429 shows a northwest-southeast elongation that is not evident
+in the X-ray surface brightness maps. Thus, there is a geometric discrepancy between the SZ and X-ray, especially
+at moderate to large radii. It is interesting to note that this discrepancy appears to bias the SZ inferred pressure 
+high relative to the X-ray inferred pressure. This could be indicative of higher temperature (lower density) regions,
+as the X-ray measurements would be less sensitive to such a region.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notes on Individual Clusters}
+\label{sec:ind_notes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Abell 1835 (z=0.25)}
+\label{sec:results_a1835}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Abell 1835 is a well studied massive cool core cluster. The cool core was noted to have substructure in the central
+10\asecs by \citet{schmidt2001}, and identified as being due the central AGN by \citet{mcnamara2006}. Abell 1835 has also
+been extensively studied via the SZ effect \citep{reese2002,benson2004,bonamente2006,sayers2011,mauskopf2012}. The models adopted
+were either beta models or generalized beta models, and tend to suggest a shallow slope for the pressure interior
+to 10\asec. Previous analysis of Abell 1835 with MUSTANG data \citep{korngut2011} detected the SZ effect decrement, but not
+at high significance, which is consistent with a featureless, smooth, broad signal. Our updated MUSTANG reduction
+of Abell 1835, shown in Figure \ref{fig:mustang_maps_sample}, has the same features as in \citet{korngut2011}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Abell 611 (z=0.29)}
+\label{sec:results_a611}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Abell 611 is unique among our clusters for the severity of the discrepancy between our joint SZ fitted pressure
+profile and that found in the X-rays. The MUSTANG map (Figure~\ref{fig:mustang_maps_sample}) shows an enhancement
+south of the X-ray centroid, and the Bolocam map shows elongation towards the south-southwest. Weak lensing maps
+are suggestive of a southwest-northeast elongation \citep{newman2009, zitrin2015}.
+Using the density of galaxies, \citet{lemze2013} find a core and a halo which align with the elongation seen 
+in the SZ (Figure~\ref{fig:a611_supp_figs}). We note that AMI
+\citep{hurley-walker2012} also sees this elongation, while they also note that Abell 611 is the most relaxed
+cluster in their sample and that the X-ray data presented from \citet{laroque2006} is very circular and uniform.
+Despite being relaxed, Abell 611 is not listed as a cool core cluster (nor disturbed) \citep{sayers2013}.
+
+In an analysis of the dark matter distribution, \citet{newman2009} find that the core (logarithmic) slope of the
+cluster is shallower than an NFW model, with $\beta_{DM} = 0.3$, where the dark matter distribution has been characterized
+by yet another generalization of the NFW profile:
+\begin{equation}
+  \rho(r) = \frac{\rho_0}{(r/r_s)^{\beta_{tot}}(1 + r/r_s)^{3-\beta_{tot}}}
+\end{equation}
+They find the distribution of dark matter within Abell 611 to be inconsistent with a single NFW model. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 1115 (z=0.36)}
+\label{sec:results_m1115}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 1115 is listed as a cool core cluster \citep{sayers2013}. It is among seven CLASH clusters that show
+unambiguous ultraviolet (UV) excesses attributed to unabsorbed star formation rates of 5-80 $M_{\odot} $yr$^{-1}$
+\citep{donahue2015}. MUSTANG detects a point source in MACS 1115, which is coincident with its BCG. 
+%The NVSS, at 1.4 GHz, finds the flux of the point source to be $16.2$ mJy.
+MACS 1115 is fit by a fairly steep inner pressure profile slope to the SZ data (Figure~\ref{fig:CI_all}).
+Adopting the Bolocam centroid, the inner pressure profile slope is notably reduced, yet the goodness of fit is
+not significantly changed. In particular, the Bolocam image shows a north-south elongation (particularly to the
+north of the centroids). In contrast, weak and strong lensing \citep{zitrin2015} show a more southeast-northwest
+elongation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 0429 (z=0.40)}
+\label{sec:results_m0429}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 0429 has been well studied in the X-ray \citep{schmidt2007,comerford2007,maughan2008,allen2008,mann2012}
+MACS 0429 is identified as a cool core cluster \citep[cf.][]{mann2012,sayers2013}. The bright point source in 
+the MUSTANG image is the cluster BCG, which is noted as having an excesses UV emission \citep{donahue2015}.
+Of the point sources observed by MUSTANG, this has the shallowest spectral index between 90 GHz and 140 GHz
+of $\alpha_{\nu} = 0.55$.
+%At 90 GHz, we find the flux density as $7.67 \pm 0.84$ mJy. The point source subtracted from the Bolocam data
+%is a $6.0 \pm 1.8$ mJy source at 140 GHz. At 1.4 GHz, NVSS finds the point source to have a flux density of
+%$138.8 \pm 4.2$ mJy \citep{condon1998}. 
+
+Despite MACS 0429's stature as a cool core cluster, its pressure profile
+(Figure~\ref{fig:CI_all}) is surprisingly shallow in the core, and shows elevated pressure relative to
+X-ray derived pressure at moderate radii. The offset between the Bolocam centroid \citep{sayers2013} and ACCEPT
+\citep{cavagnolo2009} centroid is 100 kpc, which is notably larger than the X-ray-optical separations of the cluster
+peaks and centroids reported in \citet{mann2012} of 12.8 and 19.5 kpc respectively.
+
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/MACS0429_flux_figure_with_centroid_ptsub_mnsub_9_Jul_2015}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/MBO_Contours_m0429_lens_22_Jan_2015.eps}
+%  \caption{MACS 0429}
+%  \label{fig:macs_0429params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 1206 (z=0.44)}
+\label{sec:results_m1206}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 1206 has been observed extensively \citep[e.g.][]{ebeling2001,ebeling2009,gilmour2009,umetsu2012,
+zitrin2012a,biviano2013,sayers2013}. It is not categorized as a cool core or a disturbed cluster
+\citep{sayers2013}. Using weak lensing data from Subaru, \citet{umetsu2012} find that it the major-minor 
+axis ratio of projected mass is $\gtrsim 1.7$ at $1\sigma$. They infer that this high ellipticity and 
+alignment with the BCG, optical, X-ray, and LSS shapes are suggestive that the major axis is aligned 
+close to the plane of the sky. In \citet{young2014}, substructure is identified that corresponds to an 
+optically-identified subcluster, which may either be a merging subcluster, or a foreground cluster. 
+In this analysis, the SZ signal observed by MUSTANG is well modelled by a residual component (coincident 
+with the subcluster) and a spherical bulk ICM component. We note that the Bolocam contours of MACS 1206
+do not exhibit much ellipticity. We do find that MACS 1206 has a major-minor axis 
+ratio of $1.85 \pm 0.45$ (Section~\ref{sec:ellgeo}), where the major axis is along the line of sight.
+
+%The point source was found to have a flux density of $0.77 \pm 0.06$ mJy with the best fit model in
+%\citet{young2014}. In this analysis, we find it to have a flux density of $0.75 \pm 0.08$ mJy. A proposal 
+%has been accepted for \emph{XMM-Newton} observations of this substructure (PI: Sarazin).
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m1206.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_30_Mar_2015_m1206.eps}
+%  \caption{MACS 1206}
+%  \label{fig:macs_1206params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 0329 (z=0.45)}
+\label{sec:results_m0329}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 0329 has the distinction of being listed as both a cool core and disturbed cluster. Although it has
+been classified as relaxed \citep{schmidt2007}, subtructure has been noted \citep{maughan2008}, and it earns
+its cool core and disturbed classifications based on central weighting of X-ray luminsoity and comparing
+centroid offsets between optical and X-ray data \citep{sayers2013}. The elongation of the weak lensing and
+strong lensing are towards the northwest and southeast of the centroid.
+
+MACS 0329 has two systems with multiple images: one at $z = 6.18$ and the other at $z = 2.17$. The Einstein
+radii for these two systems are $r_E = 34$\asecs and $r_E = 28$\asec, respectively \citep{zitrin2012b}, which is
+noted as being typical for relaxed, well-concentrated lensing clusters. 
+
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m0329.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_23_Feb_2015_m0329.eps}
+%  \caption{MACS 0329}
+%  \label{fig:macs_0329params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{RXJ1347 (z=0.45)}
+\label{sec:results_rxj1347}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+RXJ1347 is one of the most luminous X-ray clusters, and has been well studied in radio, SZ, lensing, optical
+spectroscopy, and X-rays \citep[e.g.][]{schindler1995,allen2002, pointecouteau1999,komatsu2001,kitayama2004,
+gitti2007b,ota2008,bradac2008,miranda2008}. X-ray contours have long suggested RXJ1347 is a relaxed system
+\citep[e.g.][]{schindler1997}, and it is classified as a cool core cluster \citep[e.g.][]{mann2012,sayers2013}. 
+
+Indeed, the first sub-arcminute SZ observations \citep{komatsu2001,kitayama2004} saw an enhancement to
+the southeast of the cluster X-ray peak, which was suggested as being due to shock heating. This enhancement
+was confirmed by MUSTANG \citep{mason2010}. Further measurements were made with CARMA \citep{plagge2013},
+which find the 9\% of the thermal energy in the cluster is in sub-arcminute substructure.
+At low radio frequencies \citep[][237 MHz and 614 MHz]{ferrari2011},
+\citep[][1.4 GHz]{gitti2007a} find evidence for a radio mini-halo in the core of RXJ1347. The cosmic ray electrons
+are thought to be reaccelerated because of the shock and sloshing in the cluster \citep{ferrari2011}.
+
+We observe a point source (coincident with the BCG) with flux density of $7.40 \pm 0.58$ mJy. Previous analysis of 
+the MUSTANG data found the point source flux density as 5 mJy \citep{mason2010}. The difference in the flux 
+densities is likely accounted by (1) the different modeling of point sources; primarily that we filter the double 
+Gaussian, (2) we simultaneously fit the components, and (3) we assume a steeper profile in the core than the beta 
+model assumed in \citet{mason2010}. Lower frequency radio observations found the flux density of the source to be 
+$10.81 \pm 0.19$ mJy at 28.5 GHz \citep{reese2002}, and $47.6 \pm 1.9$ mJy at 1.4 GHz \citep{condon1998}. The BCG 
+is observed to have a UV excess\citep{donahue2015}. 
+
+Despite
+the classification of being a cool core cluster, it is also observed that there are hot regions, intially
+constrained as $kT > 10$ keV \citep[e.g.][]{allen2002,bradac2008}, and more recently constrained to even
+hotter temperatures \citep[$kT > 20$ keV][]{johnson2012}, indicative of an unrelaxed cluster. 
+\citet{johnson2012} also interpret the two cold fronts as being due to sloshing, where a subscluster has returned
+for a second passage.
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_rxj1347.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_3_Feb_2015_rxj1347.eps}
+%  \caption{RXJ1347}
+%  \label{fig:rxj1347params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 1311 (z=0.49)}
+\label{sec:results_m1311}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+MACS 1311 is listed as a cool core cluster \citep[e.g.][]{sayers2013}, and appears to have quite circular
+contours in the X-ray and lensing images, yet has evidence for some disturbance, given its classification
+in \citet{mann2012}. However, the SZ contours from Bolocam show some enhancement  to the west, and has
+a notable centroid shift ($27.7$\asec) westward from the X-ray centroid. When fitting pressure profiles
+to this cluster, it appears that the enhanced SZ pressure at moderate radii ($r \sim 100$\asec) is due
+to this enhancement, especially when noting that we use the X-ray centroid. Adopting the Bolocam centroid
+does not change the pressure profile much, and we still observe a pressure enhancement at moderate radii.
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_3_May_2015_m1311.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_26_Apr_2015_m1311.eps}
+%  \caption{MACS 1311}
+%  \label{fig:macs_1311params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 1423 (z=0.54)}
+\label{sec:results_m1423}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 1423 is a cool core cluster \citep{mann2012,sayers2013}. While the Bolocam contours are quite concentric,
+and suggestive of a relaxed cluster, the centroid is still offset from the X-ray peak by an appreciable angle 
+($19.8$\asec). Similar to MACS 1311, the pressure is slightly less than the ACCEPT X-ray derived pressure in the
+core, and slightly greater at moderate radii. While this is expected for a centroid offset, we find that adopting
+the Bolocam centroid again yields no substantial difference in the SZ pressure profile. We observe a point source 
+(the cluster BCG) with flux density of $1.36 \pm 0.13$ mJy, which is also observed to have a UV excess 
+\citep{donahue2015}. 
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m1423.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_24_Feb_2015_m1423.eps}
+%  \caption{MACS 1423}
+%  \label{fig:macs_1423params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 1149 (z=0.54)}
+\label{sec:results_m1149}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 1149 is classified as a disturbed cluster \citep[e.g.][]{mann2012,sayers2013}, and lensing studies have found
+that a single DM halo does not describe the cluster well, but rather at least four large-scale DM hales are used to
+describe the cluster \citep{smith2009}. A large radial velocity dispersion \citep[1800 km s$^{-1}$][]{ebeling2007} is 
+observed, indicative of merger activity along the line of sight. X-ray, SZ, and lensing (particularly 
+strong lensing) all show elongation in the northwest-southeast direction. We see a $3\sigma$ feature to the east of
+the centroids, but it is not clear that this is associated with any particular feature.
+
+The SZ derived pressure profile roughly matches the shape of the X-ray derived pressure profile (Figure
+\ref{fig:CI_all}), with the SZ pressure consistently greater than the X-ray pressure.We calculate
+that the axis along the line of sight is $2.08 \pm 0.52$ (Section~\ref{sec:ellgeo}) times greater than the axes in the plane
+of the sky. Although we do not find previous analysis of the elongation in the plane of the sky, we would certainly
+expect this given (1) the inferred merger activity along the line of sight, and (2) the lensing strength of the cluster.
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m1149.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_22_Jan_2015_m1149.eps}
+%  \caption{MACS 1149}
+%  \label{fig:macs_1149params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 0717 (z=0.55)}
+\label{sec:results_m0717}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/M0717_mroczkowski_fig1.eps}
+%  \caption{From \citet{mroczkowski2012}.}
+%  \label{fig:m0717_mroczkowski}
+%\end{figure}
+
+Despite MACS 1149's impressive merging activity, MACS 0717 holds the title as the most disturbed massive cluster at $z> 0.5$
+\citep{ebeling2007}, which appears to be accreting matter along a 6-Mpc-long filament \citep{ebeling2004}, and has the
+largest known Einstein radius \citep[$\theta_e \sim 55$\asec;][]{zitrin2009}. Four distinct components are identified
+from X-ray and optical analyses \citep{ma2009}, and the lensing analyses \citep{zitrin2009,limousin2012} find agreement
+in the location of these four mass peaks with those from the X-ray and optical. 
+
+%%% Rework (subclusters, but without figure...?)
+%The four components are labelled in Figure~\ref{fig:m0717_mroczkowski}. 
+There are four identified subclusters \citep[labeled A through D][]{mroczkowski2012}. \citet{ma2009} find that subcluster C is the
+most massive component, while subcluster A is the least massive, and subclusters B and D are likely remnant cores. The
+velocities of the components from spectroscopy are found to be $(v_A, v_B, v_C, v_D) = (+278_{-339}^{+295},+3238_{-242}^{+252},
+-733_{-478}^{+486},+831_{-800}^{+843})$ km s$^{-1}$ \citep{ma2009}. 
+
+MACS 0717 has also been observed at 610 MHz with the Giant Metrewave Radio Telescope (GMRT) which reveals both a radio
+halo and a radio relic \citep{vanweeren2009}. This is interpreted as likely being due to a diffuse shock acceleration
+(DSA).
+
+We observe a foreground radio galaxy, modeled as a point source here, with flux density of $2.08 \pm 0.25$ mJy at 90 GHz. 
+This was previously reported with an integrated flux density of $2.8 \pm 0.2$ mJy and an extended shape 14.\asec4 $\times$ 16.\asec1 
+\citep{mroczkowski2012}. However, an improved beam modeling has allowed us to model the foreground galaxy given a known beam shape. 
+It is also worth
+noting that the MUSTANG data itself has been processed slightly different from that presented in \citet{mroczkowski2012};
+in this work the map is produced with a common calculated as the mean across detectors.
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m0717.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_12_Mar_2015_m0717.eps}
+%  \caption{MACS 0717}
+%  \label{fig:macs_0717params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 0647 (z=0.59)}
+\label{sec:results_m0647}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 0647 is at $z = 0.591$ and is classified as neither a cool core nor a disturbed cluster \citep{sayers2013}. 
+It was included in the CLASH sample due to its strong lensing properties \citep{postman2012}.
+Gravitational lensing \citep{zitrin2011}, X-ray surface brightness \citep{mann2012}, 
+and SZ effect (MUSTANG, see Figure \ref{fig:mustang_maps_sample}, and Bolocam) maps all
+show elongation in an east-west direction. 
+In the joint analysis presented here, we see that the spherical model provides an adequate fit to both datasets and we note 
+that the spherical assumption allows for a easier interpretation of the mass profile of the cluster.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MACS 0744 (z=0.70)}
+\label{sec:results_m0744}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MACS 0744 is neither classified as a cool core cluster nor a disturbed cluster \citep{mann2012,sayers2013}, but qualifies
+as a relaxed cluster \citep{mann2012}. There is a dense X-ray core, and a doubly peaked red sequence of galaxies as found
+by \citet{kartaltepe2008}. The gas is also found to be rather hot: $k_B T_e = 17.9_{-3.4}^{+10.8}$ keV, as determined by combining
+SZ and X-ray data \citep{laroque2003}. 
+
+The data presented here is the same as in \citet{korngut2011}, but has been processed differently: again, the primary difference
+is in the treatment of the common mode. Additionally, \citet{korngut2011} optimize over the low-pass filtering of the common mode
+and do not implement a correction factor for the SNR map. The surface brightness significance of the shock feature is the same, 
+but is perhaps less
+bowed than the kidney bean shape seen previously.  The excess in \citet{korngut2011} was an exciting results for MUSTANG, 
+as it marked the first clear detection of a shock in the SZ that had not been previously been known from X-ray observations. 
+\citet{korngut2011}
+reanalyze the X-ray data with the knowledge of the shocked region from MUSTANG, and calculate the Mach number of the shock
+based on (1) the shock density jump, (2) stagnation condition between the pressures at the edge of the cold front and just
+ahead of the shock, and (3) temperature jump across the shock, and find Mach numbers between 1.2 and 2.1, with
+a velocity of $1827_{-195}^{+267}$ km s$^{-1}$.
+
+%\afterpage{
+%\clearpage
+%\thispagestyle{empty}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/JF_Conf_Intervals_2params_both_default_speedy_9_Feb_2015_m0744.eps}
+%  \includegraphics[width=0.85\textwidth]{analysis_figures/cres/PPP_arnaud_v3_log-log_26_Feb_2015_m0744.eps}
+%  \caption{MACS 0744}
+%  \label{fig:macs_0744params}
+%\end{figure}
+%\clearpage
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{CLJ 1226 (z=0.89)}
+\label{sec:results_clj1226}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+CLJ 1226 is a well studied high redshift cluster \citep[e.g.][]{mroczkowski2009,bulbul2010,adam2015}. 
+\citet{adam2015} find a point source at RA 12:12:00.01 and Dec +33:32:42 with a flux density of 
+$6.8 \pm 0.7 \text{ (stat.)} \pm 1.0 \text{ (cal.)}$ mJy at 260 GHz and $1.9 \pm 0.2 \text{ (stat.)}$ at 150 GHz. 
+This is not the same point source seen in \citet{korngut2011}, which is reported as a point source
+with $4.6\sigma$ significance in surface brightness, and can be fit in our current analysis as a point source 
+with a flux density of $0.33 \pm 0.13$ mJy. In contrast, we fit  the point source found in \citet{adam2015} with
+a flux density of $0.36 \pm 0.11$ mJy. We therefore adopt the point source location presented in \citet{adam2015}
+for our pressure profile analysis of CLJ 1226.
+A short VLA filler observation (VLA-12A-340, D-array, at 7 GHz) was performed to follow up
+this potential source. To a limit of $\sim 50 {\rm \mu Jy}$ nothing is seen, other than the clearly spatially
+distinct radio source associated with the BCG at the cluster center (1 mJy at 7 GHz and 3.2 mJy in NVSS).
+ 
+%%% K09 flux is 0.34 +/- 0.13 mJy in our maps. Now I've written it in. Jan 2016.
+
+In the previous analysis of the MUSTANG data, \citet{korngut2011} find a ridge of significant substructure after 
+subtracting a bulk SZ profile (N07, fitted to SZA data). They find that this ridge, southwest of the cluster
+center, alongside X-ray profiles, are consistent with a merger scenario. 
+%\textcolor{red}{[I will do an analysis with the point source found in Korngut+2011. The question is if I already 
+%have the point source modelled (and to find it).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%                    CONCLUSIONS!!!                           %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+We developed an algorithm to jointly fit gNFW pressure profiles to clusters observed via the SZ
+effect with MUSTANG and Bolocam. We apply this algorithm to 14 clusters and find the profiles are 
+consistent with a universal pressure profile found in \citet{arnaud2010}. Specifically, the 
+pressure profile is of the form:
+\begin{equation*}
+  \Tilde{P_e} = \frac{P_0}{(C_{500} X)^{\gamma} [1 + (C_{500} X)^{\alpha}]^{(\beta - \gamma)/\alpha}},
+%  \label{eqn:norm_gnfw}
+\end{equation*}
+where we fixed $\alpha$ and $\beta$ to values found in \citet{arnaud2010}. A comparison to previous
+determinations of pressure profiles is shown in Figure~\ref{fig:pp_sets}. Within the radii where we
+have the greatest constraints ($0.03 R_{500} \lesssim r \lesssim R_{500}$), the pressure profile from this
+work is comparable to the other pressure profiles. This is further evidenced in the parameters themselves,
+as seen in Table~\ref{tbl:pressure_profile_results}, especially in comparison to A10 parameter values.
+
+Despite agreement for the ensemble constraint, we found discrepancies between the SZ and X-ray derived
+pressure profiles for individual clusters and investigated the potential to explain these discrepancies
+as being due to cluster geometry and ICM temperature (Section~\ref{sec:xray_comp}). We investigate cluster
+geometry by looking at the ratio between spherically derived pressure profiles as fit to SZ and ACCEPT and
+we find that the clusters have plane of sky-to-line of sight axis ratios, $\eta$, tabulated in 
+Table~\ref{tbl:accept_gnfw}, which are generally less than unity, implying that most of these clusters are 
+elongated along the line of sight. We extend this analysis to attempt to find the cluster geometry
+in the core (from MUSTANG) relative to the larger scale ICM (from Bolocam) and find some 
+hint that the cores tend to be more spherical than the ICM at larger radii. 
+%\textcolor{red}{larger scale ICM}. However, our assumption is that the
+%cluster geometry is one (or two) ellipsoids and this only explains a scalar offset in the pressure profiles.
+
+In contrast, discrepancies due to electron temperature can account for differences with cluster-centric radii.
+To explain the discrepancies we see, the ICM temperatures would need to be higher than derived by 
+spectroscopic X-ray data by ACCEPT. These higher temperatures are also biased towards larger radii, which is 
+plausible observationally as X-ray measurements would be less sensitive in regions of lower density.
+
+We conclude that cluster geometry and ICM temperature are likely critical in accounting for the differences
+between SZ and X-ray derived pressure profiles. However, we do not believe that either of these (with
+strict ellipsoids) are sufficient to explain the differences observed. We postulate that deviations from
+the ellipsoidal geometry, such as geometry in the plane of the sky as seen, for example, in MACS 1115
+(Figure~\ref{fig:mustang_maps_sample}), will also be important in explaining the discrepancies observed.
+
+%We tabulate two temperatures derived for the 
+%clusters from ACCEPT \citep{cavagnolo2009} and \citet{morandi2015}: $T_X^1$ is calculated from a single spectrum over 
+%$0.15 R_{500} < r < R_{500}$ for each cluster. $T_X^2$ is from \citet{morandi2015} and is calculated over 
+%$0.15 R_{500} < r < 0.75 R_{500}$.  Additionally, we calculate $T_{mg}$, by fitting the ACCEPT 
+%temperature profiles to the profile found in \citet{vikhlinin2006}. We then tabulate
+%$T_{spec}$ as $T_{spec} = 1.11 \times T_{mg}$ given the ratio found in \citet{vikhlinin2006} between $T_{spec}$
+%and $T_{mg}$. We may then compare either $T_x^1$ and $T_x^2$ to $T_{spec}$. Thus, we note that generally 
+%$T_{spec} < T_{X}^1 \sim T_{X}^2$, which may indicate the ACCEPT pressure profiles may be biased low, relative 
+%to the SZ pressure profiles by the deprojected (and interpolated) ACCEPT temperature profiles.
+
+%These investigations of cluster geometry and electron temperatures may account for the discrepancy between
+%SZ and X-ray pressure profiles. However, these investigations have been simplistic and are indicative of
+%the global geometry and properties of the cluster (at all radii), with the exception that we have also found
+%some indication of a difference in geometry between moderate-to-large radii and core. Yet, the discrepancy
+%in pressure profiles is not simply a scalar offset, but that the shapes often differ, especially in that
+%the SZ pressure profile is lower than X-ray in the cluster core, and SZ pressure is generally higher at
+%large radii. Geometry in the plane of the sky may be able to account for this offset, as evidenced by
+%MACS 1115, where an extended decrement to the north of the cluster center is seen by Bolocam, and drives the
+%radial pressure up, whereas this extension does not appear in the X-ray surface brightness image.
+
+%Finally, many of these clusters with discrepancies in pressure profiles have weak detections with 
+%MUSTANG, and would benefit from additional high resolution observations. While this may not resolve the
+%pressure difference at large radii, it could bring the pressure profile shape into greater alignment. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%                    BIBLIOGRAPHY!!!                          %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{apj}
+\bibliography{mycluster}
+\label{references}
+
+\end{document}
+
+

@@ -1,0 +1,64 @@
+Galaxy clusters are the largest gravitationally bound objects in the universe and thus serve as ideal cosmological probes 
+and astrophysical laboratories. Because the formation of galaxy clusters stems from overdensities of matter
+and depends on the cosmic composition of the universe, one can constrain cosmological parameters such as the matter 
+density of the universe, $\Omega_m$, the matter power spectrum normalization, $\sigma_8$,
+and the equation of state for dark energy density $\Omega_{\Lambda}$, $w$ \citep[e.g.][]{carlstrom2002}.
+
+Within a galaxy cluster, the gas in the intracluster medium (ICM) constitutes 90\% of the
+baryonic mass \citep{vikhlinin2006b} and is directly observable in the X-ray due to bremsstrahlung emission. 
+At millimeter and sub-millimeter wavelengths, the ICM is observable via the Sunyaev-Zel'dovich effect (SZE) 
+\citep{sunyaev1972}: the inverse Compton scattering of cosmic microwave background (CMB) photons off of
+the hot ICM electrons. The thermal SZE is observed as an intensity decrement relative to the CMB at wavelengths longer 
+than $\sim$1.4 mm (frequencies less than $\sim$220 GHz).
+At longer radio wavelengths, if relativistic electrons are present, parts of the ICM may emit synchrotron emission.
+
+In the core of a galaxy cluster, baryonic physics are non-negligible and non-trivial. Some observed
+physical processes in the core include shocks and cold fronts \citep[e.g.][]{markevitch2007}, sloshing
+\citep[e.g.][]{fabian2006}, and X-ray cavities \citep{mcnamara2007}. It is also theorized that helium sedimentation
+should occur, most noticeably in low redshift, dynamically-relaxed clusters \citep{abramopoulos1981, gilfanov1984} 
+and recently the expected helium enhancement via sedimentation has been numerically simulated \citep{peng2009}. 
+This would result in an offset between X-ray and SZE derived pressure profiles.
+
+At large radii ($R \gtrsim R_{500}$),\footnote{$R_{500}$
+is the radius at which the enclosed average mass density is 500 times the critical density, 
+$\rho_c(z)$, of the universe} equilibration timescales are longer, accretion is ongoing, 
+and hydrostatic equilibrium (HSE) is a poor approximation. 
+Several numerical simulations show that the fractional contribution
+ from non-thermal pressure increases with radius \citep{shaw2010,battaglia2012,nelson2014}. 
+For all three studies, non thermal pressure fractions between 15\% and 30\% are found at ($R \sim R_{500}$)
+for redshifts $0 < z < 1$. However, the intermediate radii, between the core and outer regions of the 
+galaxy cluster, offer a region where self-similar scalings derived from HSE can be used to describe simulations 
+and observations \citep[e.g.][]{kravtsov2012}. Moreover, both simulations and observations find low
+cluster-to-cluster scatter in pressure profiles within this intermediate radial range \citep[e.g.][]{borgani2004,
+nagai2007,arnaud2010,bonamente2012,planck2013a,sayers2013}.
+
+While many telescopes capable of making SZE observations are already operational or are being built, most have
+angular resolutions (full width, half maximum - FWHM) of one arcminute or larger. The MUSTANG camera \citep{dicker2008}
+on the 100 meter Robert C. Byrd Green Bank Telescope \citep[GBT, ][]{jewell2004} with its angular resolution of 9\asec 
+(FWHM) and sensitivity up to the limit of MUSTANG's instantaneous field of view, $1$\amin, 
+is one of only a few SZE instruments with sub-arcminute resolution.
+To probe a wider range of scales we complement our MUSTANG data with SZE data from Bolocam \citep{glenn1998}. 
+Bolocam is a 144-element bolometer
+array on the Caltech Submillimeter Observatory (CSO) with a beam FWHM of 58\asecs at 140 GHz and circular FOV with 8\amins 
+diameter, which is well matched to the angular size of $R_{500}$ ($\sim 4$\amin) for both of the clusters in our sample. 
+
+%In this paper, we extend the map fitting technique used in \citet{young2014}, to simultaneously
+%fit 3D pressure profiles to Bolocam and MUSTANG data. With MUSTANG's
+%high resolution, this is the first analysis to make use of SZE observations that cover similar scales 
+%($0.03 R_{500} <r \lesssim R_{500}$) to those probed by X-ray studies
+%\citep[][; hereafter N07 and A10 respectively]{nagai2007,arnaud2010} which have constrained the average cluster pressure profile. 
+%N07 compared X-ray and simulation results over radial scales ($0.1 R_{500} \lesssim r \lesssim R_{500} $), whereas
+%A10 used X-ray determined pressure profiles for $0.03 R_{500} \lesssim r < R_{500}$, and simulation results for
+%$R_{500} < r$. More recently, the Planck collaboration has published an analysis combining \xmm\ observations,
+%which span ranges $0.02 R_{500} < r < R_{500}$ with \emph{Planck} observations, which span radial ranges 
+%$0.1 R_{500} < r < 3 R_{500}$ \citep{planck2013a}. Additionally, a sample of clusters studied by Bolocam  
+%has been analyzed using solely the SZE data, which spans radial ranges of $0.07 R_{500} < r < 3.5 R_{500}$
+%\citep{sayers2013}.
+
+This paper is organized as follows. In Section~\ref{sec:obs} we describe the MUSTANG and Bolocam observations and reduction. 
+In Section~\ref{sec:jointfitting} we review the method used to jointly fit pressure profiles to MUSTANG and Bolocam data. We
+present results from the joint fits in Section~\ref{sec:pp_constraints} and compare our results to X-ray derived pressures 
+in Section~\ref{sec:xray_comp}. 
+Throughout this paper we assume a flat $\Lambda$CDM cosmology with $\Omega_m = 0.3$, $\Omega_{\lambda} = 0.7$, and $H_0 = 70$ 
+km s$^{-1}$ Mpc$^{-1}$, consistent with the 9-year \emph{Wilkinson Microwave Anisotropy Probe} (WMAP) results reported in
+ \cite{hinshaw2013}.
